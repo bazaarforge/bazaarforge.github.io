@@ -28,7 +28,7 @@ function Feature({SvgSrc, title, subtitle, description}) {
           <Heading as="h4">{subtitle}</Heading>
           <p>{description}</p>
           <div>
-            <Link className="button button--secondary" href="/docs/smart-collection-pro/intro">View documentation</Link>
+            <Link className="button button--secondary" href="/docs/smart-collection-pro/intro">User Guide</Link>
           </div>
         </div>
       </div>
