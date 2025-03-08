@@ -1,0 +1,42 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* You can override the default Infima variables here. */
+:root {
+  --ifm-color-primary: #4bb47f;
+  --ifm-color-primary-dark: #45a775;
+  --ifm-color-primary-darker: #419f6f;
+  --ifm-color-primary-darkest: #36855c;
+  --ifm-color-primary-light: #51c08a;
+  --ifm-color-primary-lighter: #54c691;
+  --ifm-color-primary-lightest: #5fd9a0;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+[data-theme='dark'] {
+  --ifm-color-primary: #4bb47f;
+  --ifm-color-primary-dark: #45a775;
+  --ifm-color-primary-darker: #419f6f;
+  --ifm-color-primary-darkest: #36855c;
+  --ifm-color-primary-light: #51c08a;
+  --ifm-color-primary-lighter: #54c691;
+  --ifm-color-primary-lightest: #5fd9a0;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+.intro_showcase img {
+  border-radius: 1rem;
+  border: 2px solid #e0e0e0; /* Light gray border */
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); /* More spread-out shadow */
+  transition: all 0.3s ease-in-out; /* Smooth transition for hover effects */
+}
+
+.intro_showcase img:hover {
+  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.2); /* Even more spread shadow on hover */
+  transform: scale(1.07); /* Slight zoom effect on hover */
+}
