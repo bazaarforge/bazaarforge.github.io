@@ -24,12 +24,12 @@ export default function Home() {
   const {siteConfig} = useDocusaurusContext();
   return (
     <Layout
-      title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />">
+      title={`${siteConfig.title} | Shopify Partner`}
+      description="We build the technical solutions that merchants and agencies need when Shopify's native capabilities fall short, continuously improving based on merchants feedback.">
       <HomepageHeader />
       <main className={styles.main}>
           <p className={styles.description}>
-            We're a <b>Shopify Partner</b> dedicated to creating powerful and easy-to-use tools helping you get the most out of your Shopify store.
+            We build the technical solutions that merchants and agencies need when Shopify's native capabilities fall short, continuously improving based on merchants feedback.
           </p>
         <HomepageFeatures />
       </main>

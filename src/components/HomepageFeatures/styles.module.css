@@ -29,3 +29,38 @@
     width: 150px;
   }
 }
+
+.title {
+  color: #33815B;
+
+  text-decoration: none !important;
+}
+
+a:hover .title {
+
+}
+
+.subtitle {
+  color: #33815B;
+  font-size: .85em;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.shopifyAppStore {
+  height: 2.7rem;
+  display: block;
+
+  img {
+    height: 100%;
+  }
+}
+
+.featureHeading {
+  display: flex;
+  justify-content: space-between;
+}

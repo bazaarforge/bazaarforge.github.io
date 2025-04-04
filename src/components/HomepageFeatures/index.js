@@ -6,11 +6,12 @@ import Link from '@docusaurus/Link';
 const FeatureList = [
   {
     title: 'Smart Collection Pro',
-    subtitle: "Supercharged Smart Collections",
+    subtitle: "Smart Collections With Advanced Logic",
     SvgSrc: "/img/smp-logo.svg",
     description: (
       <>
-        Take Shopify collections to the next level with advanced conditions, auto-syncing and hierarchy.
+        Get the collection management control Shopify's native tools couldn't provide. Take your Shopify collections to
+        the next level with advanced conditions, auto-syncing and hierarchy.
       </>
     ),
   },
@@ -24,11 +25,14 @@ function Feature({SvgSrc, title, subtitle, description}) {
           <img src={SvgSrc} className={styles.featureSvg} role="img"/>
         </div>
         <div className="padding-horiz--md">
-          <Heading as="h3">{title}</Heading>
-          <Heading as="h4">{subtitle}</Heading>
+          <Link className={styles.title} href="https://apps.shopify.com/smart-collection-pro?locale=fr"><Heading
+            as="h3">{title}</Heading></Link>
+          <Heading as="h4" className={styles.subtitle}>{subtitle}</Heading>
           <p>{description}</p>
-          <div>
-            <Link className="button button--secondary" href="/docs/smart-collection-pro/intro">User Guide</Link>
+          <div className={styles.buttons}>
+            <Link className={styles.shopifyAppStore} href="https://apps.shopify.com/smart-collection-pro?locale=fr"><img
+              src="/img/shopify/badge-shopify-app-store-light.svg"/></Link>
+            <Link className="" href="/docs/smart-collection-pro/intro">User Guide</Link>
           </div>
         </div>
       </div>
@@ -40,7 +44,7 @@ function Feature({SvgSrc, title, subtitle, description}) {
 export default function HomepageFeatures() {
   return (
     <div>
-    <div>
+      <div>
         <Heading as="h2" className="text--center">
           Our featured app
         </Heading>
