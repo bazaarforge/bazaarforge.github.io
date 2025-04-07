@@ -14,7 +14,7 @@ export default function HomepageAbout() {
         </p>
         <h3>Contact Us</h3>
         <p>
-          An enquire? Contact us at <a href="mailto:hello@bazaarforge.com">hello@bazaarforge.com</a>.
+          An enquiry? Contact us at <a href="mailto:hello@bazaarforge.com">hello@bazaarforge.com</a>.
         </p>
       </HomepageBlock>
     </div>
