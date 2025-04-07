@@ -15,8 +15,10 @@ export default function Home() {
       <Hero />
 
       <main className={styles.main}>
-        <HomepageAbout />
-        <HomepageFeatures />
+        <div className={styles.mainInner}>
+          <HomepageAbout />
+          <HomepageFeatures />
+        </div>
       </main>
     </Layout>
   );

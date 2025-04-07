@@ -1,13 +1,16 @@
 .main {
   padding: 5rem 1rem;
+  background: #fff2ec;
+}
+
+.mainInner {
   display: flex;
   justify-content: center;
-  background: #fff2ec;
   gap: 10rem;
 }
 
 @media screen and (max-width: 1200px) {
-  .main {
+  .mainInner {
     flex-direction: column;
     gap: 8rem;
     align-items: center;
