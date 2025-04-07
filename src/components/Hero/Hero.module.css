@@ -102,6 +102,9 @@
 }
 
 @media screen and (max-width: 850px) {
+  .bgImage {
+    bottom: 10px;
+  }
   .Hero {
     height: clamp(150px, calc(100vh - 100px), 300px);
   }

@@ -4,33 +4,46 @@
   height: var(--ember-size, 20px);
   background: var(--ember-color, orange);
   opacity: 0;
-  animation: floatUp var(--ember-speed, 4s) ease-in-out 1;
-  animation-delay: var(--ember-delay, 0s);
   z-index: 100;
   right: var(--ember-start-x, 50%);
   bottom: var(--ember-start-y, 0px);
   filter: blur(var(--ember-blur, 0px));
   border-radius: var(--border-radius, 0px);
 
-  --embed-screen-scale: 1; /* scaling based on screen size, is set to a lower value in a media query */
+  --ember-screen-factor-scale: 1; /* scaling based on screen size, is set to a lower value in a media query */
+  --ember-screen-factor-distance: 1; /* scaling based on screen size, is set to a lower value in a media query */
+
+  animation: floatUp var(--ember-speed, 4s) ease-in-out 1;
+  animation-delay: var(--ember-delay, 0s);
 }
 
+@media screen and (max-width: 1000px) {
+  .Ember {
+    --ember-screen-factor-scale: 0.5;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .Ember {
+    --ember-screen-factor-distance: 0.5;
+  }
+}
 @keyframes floatUp {
   0% {
-    transform: translateY(0) rotate(0deg) scale(var(--embed-screen-scale));
+    transform: translateY(0) rotate(0deg) scale(var(--ember-screen-factor-scale));
     opacity: 0;
   }
   10% {
     opacity: var(--ember-opacity, 1);
   }
-  100% {
-    transform: translateY(calc(var(--ember-distance, -150px) * -1)) rotate(var(--ember-rotation, 360deg)) scale(var(--ember-scale, 0.5));
-    opacity: 0;
-  }
-}
 
-@media screen and (max-width: 1000px) {
-  .Ember {
-    --embed-screen-scale: 0.5;
+  50% {
+    opacity: var(--ember-opacity, 1);
+  }
+
+  100% {
+    transform: translateY(calc(var(--ember-distance, -150px) * (-1 * var(--ember-screen-factor-distance)))) rotate(var(--ember-rotation, 360deg))
+      scale(calc(var(--ember-screen-factor-scale) * var(--ember-scale, 0.5)));
+    opacity: 0;
   }
 }
