@@ -22,7 +22,7 @@ const FeatureList = [
 function Feature({ SvgSrc, title, subtitle, description }) {
   const id = useId();
   return (
-    <section aria-label={id}>
+    <section className={styles.featureOuter} aria-label={id}>
       <img src={SvgSrc} className={styles.featureSvg} role="img" alt="Smart Collection Pro Logo" />
       <div className={styles.feature}>
         <Link className={styles.title} href="https://apps.shopify.com/smart-collection-pro?locale=fr">
@@ -35,7 +35,7 @@ function Feature({ SvgSrc, title, subtitle, description }) {
             <span>User Guide</span>
           </Link>
           <Link className={styles.shopifyAppStore} href="https://apps.shopify.com/smart-collection-pro?locale=fr">
-            <img src="/img/shopify/badge-shopify-app-store-light.svg" />
+            <img src="/img/shopify/badge-shopify-app-store-light.svg" alt="Available on Shopify App Store" />
           </Link>
         </div>
       </div>
@@ -50,15 +50,11 @@ export default function HomepageFeatures() {
         <div>
           <h3>Our Featured App</h3>
         </div>
-        <section className={styles.features}>
-          <div className="container">
-            <div className="row justify-content-center">
-              {FeatureList.map((props, idx) => (
-                <Feature key={idx} {...props} />
-              ))}
-            </div>
-          </div>
-        </section>
+        <div className={styles.features}>
+          {FeatureList.map((props, idx) => (
+            <Feature key={idx} {...props} />
+          ))}
+        </div>
       </HomepageBlock>
     </div>
   );

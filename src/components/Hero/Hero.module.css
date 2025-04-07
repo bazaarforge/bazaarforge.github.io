@@ -9,7 +9,7 @@
 .bgImage {
   position: absolute;
   top: 0;
-  bottom: 50px;
+  bottom: 30px;
   left: 0;
   right: 0;
   background-size: contain;
@@ -78,9 +78,15 @@
 
   h1 {
     font-size: 5.5rem;
+    text-shadow: 0 0 5px #000;
+    background: #0000003e;
+    box-shadow: 0 0 5px #0000003d;
   }
   h2 {
     font-size: 1.4rem;
+    text-shadow: 0 0 5px #000;
+    background: #0000003e;
+    box-shadow: 0 0 5px #0000003d;
   }
 }
 
