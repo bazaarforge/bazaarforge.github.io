@@ -4,7 +4,7 @@
 // There are various equivalent ways to declare your Docusaurus config.
 // See: https://docusaurus.io/docs/api/docusaurus-config
 
-import {themes as prismThemes} from 'prism-react-renderer';
+import { themes as prismThemes } from 'prism-react-renderer';
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
@@ -30,6 +30,24 @@ const config = {
     defaultLocale: 'en',
     locales: ['en'],
   },
+  headTags: [
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'preload',
+        as: 'image',
+        href: '/img/hero/left.webp',
+      },
+    },
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'preload',
+        as: 'image',
+        href: '/img/hero/right.webp',
+      },
+    },
+  ],
 
   presets: [
     [
@@ -37,8 +55,7 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-
-          sidebarPath: './sidebars.js'
+          sidebarPath: './sidebars.js',
         },
         theme: {
           customCss: './src/css/custom.css',
@@ -51,7 +68,7 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       // Replace with your project's social card
-      image: 'img/docusaurus-social-card.jpg',
+      image: 'img/smp-logo.svg',
       navbar: {
         title: 'BazaarForge',
         logo: {
@@ -66,7 +83,7 @@ const config = {
             label: 'Smart collection pro',
           },
         ],
-      }
+      },
     }),
 };
 
