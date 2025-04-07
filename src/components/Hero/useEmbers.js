@@ -52,7 +52,7 @@ export default function useEmbers() {
       timeoutIds.push(removeTimeout);
 
       // Schedule next ember
-      const nextSpawn = isBg ? 800 + Math.random() * 2000 : 100 + Math.random() * 800;
+      const nextSpawn = isBg ? Math.random() * 2000 + 800 : Math.random() * 900 + 600;
       const nextTimeout = setTimeout(() => spawnEmber(isBg), nextSpawn);
       timeoutIds.push(nextTimeout);
 
