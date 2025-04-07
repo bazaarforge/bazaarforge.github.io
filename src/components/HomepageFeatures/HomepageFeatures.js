@@ -12,8 +12,9 @@ const FeatureList = [
     SvgSrc: '/img/smp-logo.svg',
     description: (
       <>
-        Get the collection management control Shopify's native tools couldn't provide. Take your Shopify collections to the next level with{' '}
-        <b>advanced conditions, auto-syncing and hierarchy</b>.
+        <p>
+          Take your Shopify collections to the next level with <b>advanced conditions, auto-syncing and hierarchy</b>.
+        </p>
       </>
     ),
   },

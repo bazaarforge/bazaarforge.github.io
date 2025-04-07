@@ -65,7 +65,7 @@ a:hover .title {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1.5rem;
+  gap: 0.1rem;
   padding: 0 0.2rem 0 0;
 }
 
@@ -111,4 +111,17 @@ a:hover .title {
 .featureHeading {
   display: flex;
   justify-content: space-between;
+}
+
+@media screen and (max-width: 500px) {
+  .userGuide,
+  .shopifyAppStore {
+    height: 2.8rem;
+  }
+
+  .userGuide {
+    text-align: center;
+    font-size: 0.8rem;
+    padding: 0.25rem;
+  }
 }
