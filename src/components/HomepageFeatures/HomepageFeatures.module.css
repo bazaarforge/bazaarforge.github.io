@@ -1,0 +1,101 @@
+.HomepageFeatures {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.features {
+  display: flex;
+  align-items: center;
+  padding: 2rem 0 0 0;
+  width: 100%;
+}
+
+.feature {
+}
+
+.featureSvg {
+  height: 120px;
+  width: 120px;
+  border-radius: 1rem;
+  position: absolute;
+  top: -2.3rem;
+  right: -2.3rem;
+  box-shadow: -7px 8px 0px rgb(255, 242, 236);
+}
+
+@media screen and (max-width: 600px) {
+  .featureSvg {
+    right: -0.5rem;
+  }
+}
+
+.title {
+  color: #33815b;
+  text-decoration: none !important;
+
+  h4 {
+    font-size: 1.2rem;
+    margin-bottom: 0;
+  }
+}
+
+a:hover .title {
+}
+
+.subtitle {
+  color: #33815b;
+  font-size: 0.85em;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0 0.2rem 0 0;
+}
+
+.userGuide {
+  height: 3.2rem;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  background: #fff;
+  border: 1px solid #bbb;
+  transition: all 0.25s;
+  color: black;
+  &:hover {
+    text-decoration: none;
+    background: #f3f3f3;
+    color: #333;
+  }
+}
+
+.description {
+  line-height: 1.3em;
+  font-size: 0.95em;
+}
+
+.shopifyAppStore {
+  height: 3.2rem;
+  display: block;
+
+  img {
+    filter: brightness(1);
+    transition: 0.25s;
+    height: 100%;
+  }
+
+  &:hover {
+    img {
+      filter: brightness(0.95);
+    }
+  }
+}
+
+.featureHeading {
+  display: flex;
+  justify-content: space-between;
+}

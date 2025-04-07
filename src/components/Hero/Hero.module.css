@@ -1,0 +1,128 @@
+.Hero {
+  position: relative;
+  width: 100vw;
+  height: clamp(250px, calc(100vh - 100px), 500px);
+  background-color: #150115;
+  overflow: hidden;
+}
+
+.bgImage {
+  position: absolute;
+  top: 0;
+  bottom: 50px;
+  left: 0;
+  right: 0;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.bgImage.left {
+  z-index: 10;
+  left: 0;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: bottom left;
+  background-image: url('/img/hero/left.webp');
+}
+
+.bgImage.right {
+  z-index: 10;
+  right: 0;
+  background-position: bottom right;
+  background-image: url('/img/hero/right.webp');
+}
+
+.topGlow,
+.topShadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 11;
+}
+
+.topShadow {
+  z-index: 12;
+
+  box-shadow: 0 10px 30px 10px rgba(20, 0, 40, 0.5);
+}
+
+.topGlow {
+  height: 300px;
+  background: linear-gradient(to bottom, #150021, rgba(21, 0, 33, 0.8), rgba(21, 0, 33, 0.4), transparent);
+}
+
+.bottomGlow {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 11;
+  height: 120px; /* much shorter gradient */
+  background: linear-gradient(to top, rgba(20, 2, 21, 0.7), rgba(22, 11, 25, 0.3), transparent);
+}
+
+.heroContent {
+  position: absolute;
+  text-align: center;
+  z-index: 150;
+  color: #fff;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding-bottom: 6rem;
+
+  h1 {
+    font-size: 5.5rem;
+  }
+  h2 {
+    font-size: 1.4rem;
+  }
+}
+
+.forgeColor {
+  color: #f77515;
+}
+
+.embers {
+  position: absolute;
+  bottom: 50px;
+  right: 15px;
+  left: 15px;
+}
+
+@media screen and (max-width: 850px) {
+  .Hero {
+    height: clamp(150px, calc(100vh - 100px), 300px);
+  }
+
+  .left {
+    /*display: none;*/
+  }
+
+  .heroContent {
+    padding-bottom: 2rem;
+    h1 {
+      font-size: 2.5rem;
+    }
+
+    h2 {
+      font-size: 0.9rem;
+    }
+  }
+
+  .topShadow {
+    z-index: 12;
+
+    box-shadow: 0 10px 30px 10px rgba(20, 0, 40, 0.5);
+  }
+
+  .topGlow {
+    height: 10rem;
+    background: linear-gradient(to bottom, #150021, rgba(21, 0, 33, 0.8), rgba(21, 0, 33, 0.4), transparent);
+  }
+}

@@ -1,0 +1,12 @@
+.Block {
+  background: #fff;
+  border-radius: 20px;
+  width: 30rem;
+  padding: 1rem;
+  box-shadow: 16px 16px 0px rgba(173, 106, 19, 0.1);
+  position: relative;
+
+  @media screen and (max-width: 600px) {
+    width: max(calc(100vw - 5rem), 15rem);
+  }
+}
