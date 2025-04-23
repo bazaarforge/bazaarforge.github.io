@@ -28,6 +28,9 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
+      # CHECKOUT
+      - name: Checkout
+        uses: actions/checkout@v4
       # NODE
       - name: Enable Corepack
         run: corepack enable
@@ -35,9 +38,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-      # CHECKOUT
-      - name: Checkout
-        uses: actions/checkout@v4
+          cache: 'yarn'
       # BUILD
       - name: Install dependencies
         run: yarn install --immutable --immutable-cache --check-cache
