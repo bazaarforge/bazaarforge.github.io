@@ -28,17 +28,18 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      # CHECKOUT
-      - name: Checkout
-        uses: actions/checkout@v4
-      # NODE AND BUILD
+      # NODE
+      - name: Enable Corepack
+        run: corepack enable
       - name: Setup NodeJS
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: 'yarn'
-      - name: Enable Corepack
-        run: corepack enable
+      # CHECKOUT
+      - name: Checkout
+        uses: actions/checkout@v4
+      # BUILD
       - name: Install dependencies
         run: yarn install --immutable --immutable-cache --check-cache
       - name: Build
