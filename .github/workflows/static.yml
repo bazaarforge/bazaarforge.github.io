@@ -41,7 +41,9 @@ jobs:
           cache: 'yarn'
       # BUILD
       - name: Install dependencies
-        run: yarn install --immutable --immutable-cache --check-cache --non-interactive
+        run: yarn install --immutable --immutable-cache --check-cache
+        env:
+          CI: true
       - name: Build
         run: yarn build
       # GH PAGES
