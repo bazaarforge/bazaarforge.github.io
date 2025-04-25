@@ -1,6 +1,7 @@
 .main {
   padding: 5rem 1rem;
   background: #fff2ec;
+  flex: 1;
 }
 
 .mainInner {
