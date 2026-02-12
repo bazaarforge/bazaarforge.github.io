@@ -1,43 +1,39 @@
----
-sidebar_position: 100
----
+# Metafields Reference and Liquid
 
-# Metafields Reference and liquid
+Smart Collection Pro stores your collection hierarchy as **metafields** — parent/child relationships, depth levels, root collections, and breadcrumb priorities. These metafields are kept in sync automatically whenever you update your tree in the app.
 
-Collection Tree builds and maintains a set of **metafields** that describe your collection hierarchy: parent/child relationships, depth levels, root collections, and breadcrumb priorities. These metafields are kept in sync automatically whenever you update your tree in the app.
+## When should you use metafields?
 
-## When to use metafields
+For most stores, the **built-in app blocks** (Collection Grid, Breadcrumbs, etc.) are the easiest way to display your hierarchy — no code required. We recommend starting there.
 
-For most stores, the **built-in app blocks** (Collection Grid, Breadcrumbs, etc.) are the easiest way to display your hierarchy — no code required.
+That said, metafields give you full flexibility when you need it. They're a great fit if:
 
-Metafields are the better choice when you:
+- You have a **development team** that needs to integrate the hierarchy into a custom theme with specific styling or layout requirements.
+- You need hierarchy data in places the app blocks don't cover — like Liquid email templates, third-party page builders, or headless storefronts.
+- You want to build something custom, like a **mega-menu** or a dynamic navigation, powered by your collection tree.
 
-- Have a development team that needs to integrate the hierarchy into a **custom theme** with specific styling or layout requirements.
-- Need hierarchy data in contexts the app blocks don't cover — for example, Liquid email templates, third-party page builders, or headless storefronts via the Storefront API.
-- Want to build custom navigation, mega-menus, or any other feature that relies on the parent/child structure.
-
-> **Tip:** Metafields are not limited to Liquid templates. Because they are standard Shopify metafields, they are also available through the Storefront API and the Admin API, which makes them useful for headless builds, custom apps, or any workflow that reads metafield data.
+> **Good to know:** These metafields aren't limited to Liquid templates. They're standard Shopify metafields, so they're also available through the **Storefront API** and the **Admin API** — useful for headless builds, custom apps, or any workflow that reads metafield data.
 
 ---
 
-## Metafield reference
+## Available Metafields
 
-All metafields use the namespace `app--162129281025`.
+All metafields live under the namespace `app--162129281025`.
 
 ### Collection metafields
 
 These are set on each **collection** resource.
 
-| Metafield key          | Type                        | Description                                                                                                                                                                         |
-| ---------------------- | --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `parent_collection`    | `collection_reference`      | The direct parent of this collection. Blank for root collections.                                                                                                                   |
-| `children_collections` | `list.collection_reference` | Ordered list of direct child collections.                                                                                                                                           |
-| `depth`                | `number_integer`            | How deep the collection sits in the tree. Root collections have a depth of **1**, their children **2**, and so on.                                                                  |
-| `breadcrumb_priority`  | `number_integer`            | Priority value configured in the app's Breadcrumbs settings. Lower numbers = higher priority. Used to pick the best breadcrumb path when a product belongs to multiple collections. |
+| Metafield key          | Type                        | Description                                                                                                                                                                                                                                                |
+| ---------------------- | --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `parent_collection`    | `collection_reference`      | The direct parent of this collection. Blank for root collections.                                                                                                                                                                                          |
+| `children_collections` | `list.collection_reference` | Ordered list of direct child collections.                                                                                                                                                                                                                  |
+| `depth`                | `number_integer`            | How deep the collection sits in the tree. Root collections have a depth of **1**, their children **2**, and so on.                                                                                                                                         |
+| `breadcrumb_priority`  | `number_integer`            | The priority value you configured in the app's **Breadcrumbs** settings (Shopify Admin → Smart Collection Pro → Breadcrumbs). Lower numbers mean higher priority. This helps pick the best breadcrumb path when a product belongs to multiple collections. |
 
 ### Shop metafields
 
-These are set on the **shop** resource and give access to root-level collections.
+These are set on the **shop** resource and give you access to your root-level collections.
 
 | Metafield key        | Type                        | Description                                  |
 | -------------------- | --------------------------- | -------------------------------------------- |
@@ -46,13 +42,13 @@ These are set on the **shop** resource and give access to root-level collections
 | `root_collections_3` | `list.collection_reference` | Third batch (items 501–750).                 |
 | `root_collections_4` | `list.collection_reference` | Fourth batch (items 751–1000).               |
 
-Root collections are split across multiple metafields because Shopify limits list metafields to 250 items. Most stores only need `root_collections_1`.
+Root collections are split across multiple metafields because Shopify limits list metafields to 250 items each. Most stores will only need `root_collections_1`.
 
 ---
 
-## Accessing metafields in Liquid
+## Accessing Metafields in Liquid
 
-In Liquid, the namespace uses the dot notation `app--162129281025`:
+In Liquid, you reference the namespace using bracket notation:
 
 ```liquid
 {{ collection.metafields['app--162129281025'].depth }}
@@ -70,9 +66,11 @@ For shop-level metafields:
 
 ## Examples
 
+Here are a few common patterns to get you started.
+
 ### Display child collections on a collection page
 
-Loop over `children_collections` to render a grid of subcategories:
+This is useful when you want to show subcategory cards above your product list — for example, showing **"Beachwear"**, **"Sunglasses"**, and **"Hats"** on your **"Summer Sale"** collection page.
 
 ```liquid
 {% assign children = collection.metafields['app--162129281025'].children_collections.value %}
@@ -95,9 +93,9 @@ Loop over `children_collections` to render a grid of subcategories:
 {% endif %}
 ```
 
-### Display all root collections
+### List all root collections
 
-Merge the root batches into a single array:
+If you need to display your top-level collections — for example in a custom navigation or on your homepage — you can pull them from the shop metafields:
 
 ```liquid
 {% assign roots = shop.metafields['app--162129281025'].root_collections_1.value %}
@@ -115,9 +113,9 @@ Merge the root batches into a single array:
 </ul>
 ```
 
-### Build a collection breadcrumb
+### Build a collection page breadcrumb
 
-Walk up the tree using `parent_collection` to produce a trail like _Home › Women › Shoes › Sneakers_:
+You can walk up the tree using `parent_collection` to build a breadcrumb trail like **Home › Summer Sale › Beachwear**:
 
 ```liquid
 {% assign crumbs = '' | split: '' %}
@@ -145,9 +143,11 @@ Walk up the tree using `parent_collection` to produce a trail like _Home › Wom
 </nav>
 ```
 
-### Pick the best breadcrumb collection for a product
+### Pick the best breadcrumb collection for a product page
 
-Products can belong to multiple collections. Use `breadcrumb_priority` (configured in the app under **Breadcrumbs**) and `depth` to select the most relevant one:
+Products often belong to multiple collections. For example, a pair of sneakers might be in both **"Women › Shoes › Sneakers"** and **"New Arrivals"**. You probably want the breadcrumb to show the deeper, more specific path.
+
+The `breadcrumb_priority` metafield (which you configure in the app under **Breadcrumbs**) and `depth` help you pick the right one — lower priority wins first, and if two collections share the same priority, the deeper one is preferred:
 
 ```liquid
 {% assign best_collection = nil %}
@@ -159,21 +159,21 @@ Products can belong to multiple collections. Use `breadcrumb_priority` (configur
   {% assign priority = col.metafields['app--162129281025'].breadcrumb_priority %}
 
   {% if depth >= 1 %}
-    {% assign dominated = false %}
+    {% assign is_better = false %}
 
-    {% comment %} Prefer lower priority value (higher importance) {% endcomment %}
+    {% comment %} Prefer lower priority value (= higher importance) {% endcomment %}
     {% if priority != blank %}
       {% if best_priority == blank or priority < best_priority %}
-        {% assign dominated = true %}
+        {% assign is_better = true %}
       {% endif %}
     {% endif %}
 
-    {% comment %} Same priority → prefer deeper collection {% endcomment %}
+    {% comment %} Same priority? Prefer deeper collection {% endcomment %}
     {% if priority == best_priority and depth > best_depth %}
-      {% assign dominated = true %}
+      {% assign is_better = true %}
     {% endif %}
 
-    {% if best_depth == blank or dominated %}
+    {% if best_depth == blank or is_better %}
       {% assign best_priority = priority %}
       {% assign best_depth = depth %}
       {% assign best_collection = col %}
@@ -183,20 +183,20 @@ Products can belong to multiple collections. Use `breadcrumb_priority` (configur
 
 {% comment %}
   Now build the breadcrumb by walking up from best_collection
-  using parent_collection — same technique as the collection breadcrumb above.
+  using parent_collection, same technique as the collection breadcrumb above.
 {% endcomment %}
 ```
 
-### Check a collection's depth
+### Adapt layout based on collection depth
 
-Useful for conditional logic — for example, showing a different layout for top-level vs. deeply nested collections:
+You can use `depth` for conditional logic — for example, showing a different layout depending on where a collection sits in the tree:
 
 ```liquid
 {% assign depth = collection.metafields['app--162129281025'].depth %}
 
 {% if depth == 1 %}
-  {%- comment -%} Root collection — show large hero banner {%- endcomment -%}
+  {% comment %} Root collection — show a large hero banner {% endcomment %}
 {% elsif depth >= 3 %}
-  {%- comment -%} Deep collection — show compact header {%- endcomment -%}
+  {% comment %} Deep collection — show a compact header {% endcomment %}
 {% endif %}
 ```
