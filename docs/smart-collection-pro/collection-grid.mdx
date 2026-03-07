@@ -70,15 +70,21 @@ scp-collection-grid {
 **Advanced example** - Different styles for mobile devices:
 
 ```css
+/* This is required to get the container query below to work */
 .app-block-scp-collection-grid {
   container-type: inline-size;
   container-name: collection-grid;
 }
 
+/* Desktop style */
+scp-collection-grid {
+  --scp-cg-title-padding: 1rem;
+}
+
+/* Mobile style */
 @container collection-grid (max-width: 750px) {
   scp-collection-grid {
     --scp-cg-title-padding: 0;
-    --scp-cg-title-color: #000000;
   }
 }
 ```
