@@ -16,8 +16,6 @@ Smart Collection Pro provides two breadcrumb blocks:
 
 For example, a customer browsing a product might see **Home > Summer Sale > Beachwear > Beach Towel Set**, making it easy to navigate back up through your catalog.
 
-![breadcrumb demo screenshot](./img/breadcrumb/breadcrumb-demo.png)
-
 ## Adding the Collection Breadcrumb
 
 ### How to Enable Breadcrumb Navigation on Collection Pages
@@ -141,9 +139,9 @@ Your custom styling will now be applied to the breadcrumbs throughout your store
 
 ### Available CSS Variables
 
-The breadcrumb is made up of several parts: the **prefix** (typically "Home"), one or more **crumb** links, a **last crumb** (the last link before the current page), **separators** between items, and the **current** page label.
+The breadcrumb is made up of several parts: the **prefix** (typically "Home"), one or more **crumb** links, a **parent** (the last link before the current page), **separators** between items, and the **current** page label.
 
-The variables follow an inheritance model: **crumbs** styles apply to all items by default, and individual parts (prefix, last crumb, current) inherit from crumbs unless explicitly overridden.
+The variables follow an inheritance model: **crumbs** styles apply to all items by default, and individual parts (prefix, parent, current) inherit from crumbs unless explicitly overridden.
 
 #### Layout
 
@@ -167,7 +165,7 @@ Applies only to the separator characters between breadcrumb items (e.g. `/` or `
 
 #### Crumbs Styling
 
-Applies to **all** breadcrumb items, including the prefix, the last crumb, and the current page label. Each of those can override these values individually using the variables below.
+Applies to **all** breadcrumb items, including the prefix, the parent, and the current page label. Each of those can override these values individually using the variables below.
 
 | Variable                          | Purpose                        | Default                 |
 | --------------------------------- | ------------------------------ | ----------------------- |
@@ -185,15 +183,15 @@ Overrides crumbs styling for the **root item** only. This is typically the "Home
 | `--scp-bc-prefix-text-decoration` | Text decoration of the prefix | Inherits from crumbs |
 | `--scp-bc-prefix-font-weight`     | Font weight of the prefix     | Inherits from crumbs |
 
-#### Last Crumb Styling
+#### Parent styling
 
 Overrides crumbs styling for the **last link** in the breadcrumb, i.e. the final crumb before the current page label.
 
-| Variable                              | Purpose                            | Default              |
-| ------------------------------------- | ---------------------------------- | -------------------- |
-| `--scp-bc-last-crumb-font-size`       | Font size of the last crumb link   | Inherits from crumbs |
-| `--scp-bc-last-crumb-text-decoration` | Text decoration of the last crumb  | Inherits from crumbs |
-| `--scp-bc-last-crumb-font-weight`     | Font weight of the last crumb link | Inherits from crumbs |
+| Variable                          | Purpose                            | Default              |
+| --------------------------------- | ---------------------------------- | -------------------- |
+| `--scp-bc-parent-font-size`       | Font size of the last crumb link   | Inherits from crumbs |
+| `--scp-bc-parent-text-decoration` | Text decoration of the last crumb  | Inherits from crumbs |
+| `--scp-bc-parent-font-weight`     | Font weight of the last crumb link | Inherits from crumbs |
 
 #### Current Page Styling
 
