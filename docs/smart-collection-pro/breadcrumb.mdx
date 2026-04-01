@@ -4,11 +4,15 @@ sidebar_position: 4
 
 # Breadcrumb Navigation
 
-The app let's you add breadcrumbs to your theme that use the hierarchy you have configured in the app.
+## Helping Customers Find Their Way
 
-## Adding Breadcrumbs to Your Store
+The **Breadcrumb** app block adds breadcrumb navigation to your collection pages, built from the hierarchy you've configured in the app.
+It dynamically reflects the parent-child relationships between your collections, giving customers a clear path back through your catalog.
 
-After configuring your collection hierarchy in **Smart Collection Pro**, you can enable breadcrumb navigation to improve user experience.
+This is particularly useful when you have nested collections—for example, **Home > Summer Sale > Beachwear**—helping
+customers understand where they are and navigate your store with ease.
+
+## Adding Breadcrumbs to Your Theme
 
 ### How to Enable Breadcrumb Navigation
 
@@ -20,12 +24,131 @@ After configuring your collection hierarchy in **Smart Collection Pro**, you can
 
 ![theme editor screenshot](./img/breadcrumb/theme-template-collection.png)
 
-#### 3. From the left menu click **Add section** and from the Apps tab select **Breadcrumb** from **Smart Collection Pro**
+#### 3. From the left menu, click **Add section** and select **Breadcrumb** from the **Smart Collection Pro** app
 
 ![theme editor screenshot](./img/breadcrumb/theme-section.png)
 
-#### 4. From the right menu you can **configure the breadcrumb**
+#### 4. Configure the breadcrumb settings from the right menu
+
+You can adjust various settings such as font size, separator style, and spacing directly from the theme editor.
 
 ![theme editor screenshot](./img/breadcrumb/configure-breadcrumb.png)
 
 Once added, the breadcrumb navigation will dynamically reflect the collection hierarchy you've configured, making it easier for customers to navigate your store.
+
+---
+
+## Advanced Customization
+
+If the built-in configuration options don't meet your needs, you can use custom CSS variables to fine-tune the appearance of your breadcrumbs.
+
+### How to Add Custom CSS
+
+#### 1. From the theme editor, open **Theme settings** (usually at the bottom of the left sidebar)
+
+#### 2. Scroll down to the **Custom CSS** section
+
+![css edit screenshot](./img/collection-grid/custom-css-editor.png)
+
+#### 3. Add your custom styles to the text field
+
+**Basic example** — Make the current page label bold and remove underlines from crumb links:
+
+```css
+scp-breadcrumb {
+  --scp-bc-current-font-weight: 700;
+  --scp-bc-crumbs-text-decoration: none;
+}
+```
+
+**Advanced example** — Different styles for mobile and desktop using a container query:
+
+```css
+/* This is required to get the container query below to work */
+.app-block-scp-breadcrumb {
+  container-type: inline-size;
+  container-name: breadcrumb;
+}
+
+/* Desktop style */
+scp-breadcrumb {
+  --scp-bc-crumbs-font-size: 1rem;
+}
+
+/* Mobile style */
+@container breadcrumb (max-width: 750px) {
+  scp-breadcrumb {
+    --scp-bc-crumbs-font-size: 0.85rem;
+    --scp-bc-margin-block: 0.5rem;
+  }
+}
+```
+
+#### 4. Click **Save** to apply your changes
+
+Your custom styling will now be applied to the breadcrumbs throughout your store.
+
+### Available CSS Variables
+
+The breadcrumb is made up of several parts: the **prefix** (typically "Home"), one or more **crumb** links, a **last crumb** (the last link before the current page), **separators** between items, and the **current** page label.
+
+The variables follow an inheritance model: **crumbs** styles apply to all items by default, and individual parts (prefix, last crumb, current) inherit from crumbs unless explicitly overridden.
+
+#### Layout
+
+| Variable                | Purpose                                                                                                                                                                 |
+| ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--scp-bc-margin-block` | Margin above and below the breadcrumb. Overrides the value from the theme editor settings — best used inside media or container queries for responsive adjustments      |
+| `--scp-bc-font-size`    | Base font size for all breadcrumb elements. Overrides the value from the theme editor settings — best used inside media or container queries for responsive adjustments |
+
+:::tip
+The **margin-block** and **font-size** overrides are best reserved for targeting specific breakpoints (e.g. mobile vs. desktop) through media or container queries. For general use, it's recommended to keep these driven by the theme editor settings.
+:::
+
+#### Separator Styling
+
+Applies only to the separator characters between breadcrumb items (e.g. `/` or `>`).
+
+| Variable                         | Purpose                   | Default                 |
+| -------------------------------- | ------------------------- | ----------------------- |
+| `--scp-bc-separator-font-size`   | Font size of separators   | Inherits base font size |
+| `--scp-bc-separator-font-weight` | Font weight of separators | `400`                   |
+
+#### Crumbs Styling
+
+Applies to **all** breadcrumb items — including the prefix, the last crumb, and the current page label. Each of those can override these values individually using the variables below.
+
+| Variable                          | Purpose                        | Default                 |
+| --------------------------------- | ------------------------------ | ----------------------- |
+| `--scp-bc-crumbs-font-size`       | Font size of crumb items       | Inherits base font size |
+| `--scp-bc-crumbs-text-decoration` | Text decoration of crumb items | `underline`             |
+| `--scp-bc-crumbs-font-weight`     | Font weight of crumb items     | `400`                   |
+
+#### Prefix Styling
+
+Overrides crumbs styling for the **root item** only — typically the "Home" link at the start of the breadcrumb.
+
+| Variable                          | Purpose                       | Default              |
+| --------------------------------- | ----------------------------- | -------------------- |
+| `--scp-bc-prefix-font-size`       | Font size of the prefix       | Inherits from crumbs |
+| `--scp-bc-prefix-text-decoration` | Text decoration of the prefix | Inherits from crumbs |
+| `--scp-bc-prefix-font-weight`     | Font weight of the prefix     | Inherits from crumbs |
+
+#### Last Crumb Styling
+
+Overrides crumbs styling for the **last link** in the breadcrumb — the final crumb before the current page label.
+
+| Variable                              | Purpose                            | Default              |
+| ------------------------------------- | ---------------------------------- | -------------------- |
+| `--scp-bc-last-crumb-font-size`       | Font size of the last crumb link   | Inherits from crumbs |
+| `--scp-bc-last-crumb-text-decoration` | Text decoration of the last crumb  | Inherits from crumbs |
+| `--scp-bc-last-crumb-font-weight`     | Font weight of the last crumb link | Inherits from crumbs |
+
+#### Current Page Styling
+
+Overrides crumbs styling for the **current page** label — the last item in the breadcrumb, which is not a link.
+
+| Variable                       | Purpose                             | Default              |
+| ------------------------------ | ----------------------------------- | -------------------- |
+| `--scp-bc-current-font-size`   | Font size of the current page label | Inherits from crumbs |
+| `--scp-bc-current-font-weight` | Font weight of the current page     | Inherits from crumbs |
