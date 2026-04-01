@@ -6,15 +6,19 @@ sidebar_position: 4
 
 ## Helping Customers Find Their Way
 
-The **Breadcrumb** app block adds breadcrumb navigation to your collection pages, built from the hierarchy you've configured in the app.
-It dynamically reflects the parent-child relationships between your collections, giving customers a clear path back through your catalog.
+The **Breadcrumb** app blocks add breadcrumb navigation to your store, built from the collection hierarchy you've configured in the app.
+They dynamically reflect the parent-child relationships between your collections, giving customers a clear path through your catalog.
 
-This is particularly useful when you have nested collections—for example, **Home > Summer Sale > Beachwear**—helping
-customers understand where they are and navigate your store with ease.
+Smart Collection Pro provides two breadcrumb blocks:
 
-## Adding Breadcrumbs to Your Theme
+- **Collection Breadcrumb**: Displays the collection path on collection pages
+- **Product Breadcrumb**: Displays the collection path on product pages, linking the product back to its collection
 
-### How to Enable Breadcrumb Navigation
+For example, a customer browsing a product might see **Home > Summer Sale > Beachwear > Beach Towel Set**, making it easy to navigate back up through your catalog.
+
+## Adding the Collection Breadcrumb
+
+### How to Enable Breadcrumb Navigation on Collection Pages
 
 #### 1. Open your **Online Store** theme editor
 
@@ -38,9 +42,50 @@ Once added, the breadcrumb navigation will dynamically reflect the collection hi
 
 ---
 
+## Adding the Product Breadcrumb
+
+A **Product Breadcrumb** block is also available for product pages. It works the same way as the collection breadcrumb, but displays the collection path leading to the current product — helping customers understand where the product sits within your catalog and navigate back to the relevant collection.
+
+To add it, follow the same steps as above but select the **Products** template instead of **Collections**, and choose the **Product Breadcrumb** block from the **Smart Collection Pro** app.
+
+### Collection Priority on Product Pages
+
+Because a single product can belong to multiple collections, the breadcrumb needs to pick one to display. By default, the app handles this automatically — but if you want control over which collection appears, you can set up a priority list.
+
+To configure collection priority, open the **Smart Collection Pro** app in your Shopify admin and navigate to the **Breadcrumbs** section from the left menu. From there, you can create an ordered list of collections. Collections at the top of the list take priority.
+
+You don't need to add every collection — if a collection isn't in the list, the app will check whether any of its parent collections are listed and use that priority instead. We recommend keeping the list short and setting priority on top-level collections whenever possible, rather than trying to manage every subcollection individually.
+
+:::tip
+Choosing the right collection for your product breadcrumb can help boost the SEO of your Shopify store. The collection linked in the breadcrumb becomes part of the page's structured data and navigation signals, reinforcing the relationship between your products and collections in search engines. Prioritizing your most important collections ensures they receive the strongest SEO benefit.
+:::
+
+---
+
+## Structured Data & SEO
+
+Smart Collection Pro automatically adds **structured data** ([JSON-LD](https://developers.google.com/search/docs/appearance/structured-data/breadcrumb)) to your breadcrumb, following Google's recommended format.
+
+This structured data helps search engines understand your store's hierarchy and can result in **breadcrumb-rich results** appearing directly in search engine results pages (SERPs) — giving your Shopify store better visibility and click-through rates.
+
+There's nothing to configure — as soon as you add a breadcrumb block to your theme, the structured data is included automatically.
+
+---
+
 ## Advanced Customization
 
 If the built-in configuration options don't meet your needs, you can use custom CSS variables to fine-tune the appearance of your breadcrumbs.
+
+### CSS Selectors
+
+The two breadcrumb blocks use different tag and class selectors:
+
+| Breadcrumb       | Tag selector                      | Container class                        |
+| ---------------- | --------------------------------- | -------------------------------------- |
+| Collection pages | `smart-collection-pro-breadcrumb` | `.app-block-scp-collection-breadcrumb` |
+| Product pages    | `scp-product-breadcrumb`          | `.app-block-scp-product-breadcrumb`    |
+
+Both blocks support the same CSS variables listed below. You can target them individually or style them together.
 
 ### How to Add Custom CSS
 
@@ -52,10 +97,11 @@ If the built-in configuration options don't meet your needs, you can use custom 
 
 #### 3. Add your custom styles to the text field
 
-**Basic example** — Make the current page label bold and remove underlines from crumb links:
+**Basic example** — Make the current page label bold and remove underlines from crumb links on both breadcrumbs:
 
 ```css
-scp-breadcrumb {
+smart-collection-pro-breadcrumb,
+scp-product-breadcrumb {
   --scp-bc-current-font-weight: 700;
   --scp-bc-crumbs-text-decoration: none;
 }
@@ -65,19 +111,22 @@ scp-breadcrumb {
 
 ```css
 /* This is required to get the container query below to work */
-.app-block-scp-breadcrumb {
+.app-block-scp-collection-breadcrumb,
+.app-block-scp-product-breadcrumb {
   container-type: inline-size;
   container-name: breadcrumb;
 }
 
 /* Desktop style */
-scp-breadcrumb {
+smart-collection-pro-breadcrumb,
+scp-product-breadcrumb {
   --scp-bc-crumbs-font-size: 1rem;
 }
 
 /* Mobile style */
 @container breadcrumb (max-width: 750px) {
-  scp-breadcrumb {
+  smart-collection-pro-breadcrumb,
+  scp-product-breadcrumb {
     --scp-bc-crumbs-font-size: 0.85rem;
     --scp-bc-margin-block: 0.5rem;
   }
