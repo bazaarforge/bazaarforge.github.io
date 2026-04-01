@@ -16,6 +16,8 @@ Smart Collection Pro provides two breadcrumb blocks:
 
 For example, a customer browsing a product might see **Home > Summer Sale > Beachwear > Beach Towel Set**, making it easy to navigate back up through your catalog.
 
+![breadcrumb demo screenshot](./img/breadcrumb/breadcrumb-demo.png)
+
 ## Adding the Collection Breadcrumb
 
 ### How to Enable Breadcrumb Navigation on Collection Pages
@@ -44,17 +46,17 @@ Once added, the breadcrumb navigation will dynamically reflect the collection hi
 
 ## Adding the Product Breadcrumb
 
-A **Product Breadcrumb** block is also available for product pages. It works the same way as the collection breadcrumb, but displays the collection path leading to the current product — helping customers understand where the product sits within your catalog and navigate back to the relevant collection.
+A **Product Breadcrumb** block is also available for product pages. It works the same way as the collection breadcrumb, but displays the collection path leading to the current product. This helps customers understand where the product sits within your catalog and navigate back to the relevant collection.
 
 To add it, follow the same steps as above but select the **Products** template instead of **Collections**, and choose the **Product Breadcrumb** block from the **Smart Collection Pro** app.
 
 ### Collection Priority on Product Pages
 
-Because a single product can belong to multiple collections, the breadcrumb needs to pick one to display. By default, the app handles this automatically — but if you want control over which collection appears, you can set up a priority list.
+Because a single product can belong to multiple collections, the breadcrumb needs to pick one to display. By default, the app handles this automatically. If you want control over which collection appears, you can set up a priority list.
 
 To configure collection priority, open the **Smart Collection Pro** app in your Shopify admin and navigate to the **Breadcrumbs** section from the left menu. From there, you can create an ordered list of collections. Collections at the top of the list take priority.
 
-You don't need to add every collection — if a collection isn't in the list, the app will check whether any of its parent collections are listed and use that priority instead. We recommend keeping the list short and setting priority on top-level collections whenever possible, rather than trying to manage every subcollection individually.
+You don't need to add every collection. If a collection isn't in the list, the app will check whether any of its parent collections are listed and use that priority instead. We recommend keeping the list short and setting priority on top-level collections whenever possible, rather than trying to manage every subcollection individually.
 
 :::tip
 Choosing the right collection for your product breadcrumb can help boost the SEO of your Shopify store. The collection linked in the breadcrumb becomes part of the page's structured data and navigation signals, reinforcing the relationship between your products and collections in search engines. Prioritizing your most important collections ensures they receive the strongest SEO benefit.
@@ -66,9 +68,9 @@ Choosing the right collection for your product breadcrumb can help boost the SEO
 
 Smart Collection Pro automatically adds **structured data** ([JSON-LD](https://developers.google.com/search/docs/appearance/structured-data/breadcrumb)) to your breadcrumb, following Google's recommended format.
 
-This structured data helps search engines understand your store's hierarchy and can result in **breadcrumb-rich results** appearing directly in search engine results pages (SERPs) — giving your Shopify store better visibility and click-through rates.
+This structured data helps search engines understand your store's hierarchy and can result in **breadcrumb-rich results** appearing directly in search engine results pages (SERPs). This gives your Shopify store better visibility and click-through rates.
 
-There's nothing to configure — as soon as you add a breadcrumb block to your theme, the structured data is included automatically.
+There's nothing to configure: as soon as you add a breadcrumb block to your theme, the structured data is included automatically.
 
 ---
 
@@ -97,7 +99,7 @@ Both blocks support the same CSS variables listed below. You can target them ind
 
 #### 3. Add your custom styles to the text field
 
-**Basic example** — Make the current page label bold and remove underlines from crumb links on both breadcrumbs:
+**Basic example** - Make the current page label bold and remove underlines from crumb links on both breadcrumbs:
 
 ```css
 smart-collection-pro-breadcrumb,
@@ -107,7 +109,7 @@ scp-product-breadcrumb {
 }
 ```
 
-**Advanced example** — Different styles for mobile and desktop using a container query:
+**Advanced example** - Different styles for mobile and desktop using a container query:
 
 ```css
 /* This is required to get the container query below to work */
@@ -145,10 +147,10 @@ The variables follow an inheritance model: **crumbs** styles apply to all items 
 
 #### Layout
 
-| Variable                | Purpose                                                                                                                                                                 |
-| ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--scp-bc-margin-block` | Margin above and below the breadcrumb. Overrides the value from the theme editor settings — best used inside media or container queries for responsive adjustments      |
-| `--scp-bc-font-size`    | Base font size for all breadcrumb elements. Overrides the value from the theme editor settings — best used inside media or container queries for responsive adjustments |
+| Variable                | Purpose                                                                                                                                                                |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--scp-bc-margin-block` | Margin above and below the breadcrumb. Overrides the value from the theme editor settings. Best used inside media or container queries for responsive adjustments      |
+| `--scp-bc-font-size`    | Base font size for all breadcrumb elements. Overrides the value from the theme editor settings. Best used inside media or container queries for responsive adjustments |
 
 :::tip
 The **margin-block** and **font-size** overrides are best reserved for targeting specific breakpoints (e.g. mobile vs. desktop) through media or container queries. For general use, it's recommended to keep these driven by the theme editor settings.
@@ -165,7 +167,7 @@ Applies only to the separator characters between breadcrumb items (e.g. `/` or `
 
 #### Crumbs Styling
 
-Applies to **all** breadcrumb items — including the prefix, the last crumb, and the current page label. Each of those can override these values individually using the variables below.
+Applies to **all** breadcrumb items, including the prefix, the last crumb, and the current page label. Each of those can override these values individually using the variables below.
 
 | Variable                          | Purpose                        | Default                 |
 | --------------------------------- | ------------------------------ | ----------------------- |
@@ -175,7 +177,7 @@ Applies to **all** breadcrumb items — including the prefix, the last crumb, an
 
 #### Prefix Styling
 
-Overrides crumbs styling for the **root item** only — typically the "Home" link at the start of the breadcrumb.
+Overrides crumbs styling for the **root item** only. This is typically the "Home" link at the start of the breadcrumb.
 
 | Variable                          | Purpose                       | Default              |
 | --------------------------------- | ----------------------------- | -------------------- |
@@ -185,7 +187,7 @@ Overrides crumbs styling for the **root item** only — typically the "Home" lin
 
 #### Last Crumb Styling
 
-Overrides crumbs styling for the **last link** in the breadcrumb — the final crumb before the current page label.
+Overrides crumbs styling for the **last link** in the breadcrumb, i.e. the final crumb before the current page label.
 
 | Variable                              | Purpose                            | Default              |
 | ------------------------------------- | ---------------------------------- | -------------------- |
@@ -195,7 +197,7 @@ Overrides crumbs styling for the **last link** in the breadcrumb — the final c
 
 #### Current Page Styling
 
-Overrides crumbs styling for the **current page** label — the last item in the breadcrumb, which is not a link.
+Overrides crumbs styling for the **current page** label. This is the last item in the breadcrumb and is not a link.
 
 | Variable                       | Purpose                             | Default              |
 | ------------------------------ | ----------------------------------- | -------------------- |
