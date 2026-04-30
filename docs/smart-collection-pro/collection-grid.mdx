@@ -113,17 +113,108 @@ Your custom styling will now be applied to the collection grid throughout your s
 | `--scp-cg-title-padding`                  | Spacing inside the title area                                                    |
 | `--scp-cg-title-margin`                   | Spacing around the title area                                                    |
 | `--scp-cg-title-border-radius`            | Rounded corners for title background                                             |
+| `--scp-cg-title-text-wrap`                | How the title text wraps (e.g. `nowrap`, `balance`)                              |
 
 #### Card Styling
 
 | Variable                              | Purpose                                                      |
 | ------------------------------------- | ------------------------------------------------------------ |
 | `--scp-cg-background-color`           | Background color of collection cards                         |
+| `--scp-cg-padding`                    | Inner spacing of the card (must include a unit, e.g. `10px`) |
 | `--scp-cg-border-width`               | Thickness of card border                                     |
 | `--scp-cg-border-color`               | Color of card border                                         |
 | `--scp-cg-border-style`               | Border style (solid, dashed, etc.)                           |
+| `--scp-cg-card-width`                 | Outer width of each card                                     |
+| `--scp-cg-card-height`                | Outer height of each card                                    |
 | `--scp-cg-thumbnail-object-fit`       | How images fit within their container (cover, contain, etc.) |
 | `--scp-cg-thumbnail-background-color` | Background color behind collection images                    |
+| `--scp-cg-thumbnail-height`           | Height of the card thumbnail area                            |
+| `--scp-cg-thumbnail-display`          | Display mode of the thumbnail (e.g. `none` to hide it)       |
+| `--scp-cg-thumbnail-aspect-ratio`     | Aspect ratio applied to thumbnails (e.g. `1 / 1`, `16 / 9`)  |
+| `--scp-cg-image-width`                | Width of the image inside the thumbnail                      |
+
+#### Card Inner Layout
+
+Controls the flex container that wraps the card's contents (thumbnail, title, etc.).
+
+| Variable                              | Purpose                                                             |
+| ------------------------------------- | ------------------------------------------------------------------- |
+| `--scp-cg-card-inner-width`           | Width of the inner content wrapper                                  |
+| `--scp-cg-card-inner-height`          | Height of the inner content wrapper                                 |
+| `--scp-cg-card-inner-display`         | Display mode of the inner wrapper (default: `flex`)                 |
+| `--scp-cg-card-inner-flex-direction`  | Direction of inner content (`column`, `row`, etc.)                  |
+| `--scp-cg-card-inner-justify-content` | Main-axis alignment of inner content (`center`, `space-between`, …) |
+| `--scp-cg-card-inner-align-items`     | Cross-axis alignment of inner content (`center`, `flex-start`, …)   |
+
+#### Grid & Layout
+
+Controls how cards are arranged on the page.
+
+| Variable                        | Purpose                                                  |
+| ------------------------------- | -------------------------------------------------------- |
+| `--scp-cg-columns`              | Override the number of columns set in the block settings |
+| `--scp-cg-grid-display`         | Display mode for the container (`grid` or `flex`)        |
+| `--scp-cg-grid-flex-wrap`       | Wrap behavior when in flex mode (`wrap`, `nowrap`)       |
+| `--scp-cg-grid-justify-content` | Horizontal alignment of items inside the container       |
+| `--scp-cg-grid-margin-left`     | Left margin applied to the grid                          |
+| `--scp-cg-grid-margin-right`    | Right margin applied to the grid                         |
+
+#### Carousel — Navigation Buttons
+
+Used when the block is displayed as a carousel.
+
+| Variable                                    | Purpose                                                                   |
+| ------------------------------------------- | ------------------------------------------------------------------------- |
+| `--scp-cg-carousel-button-size`             | Diameter of the prev/next buttons (default: `34px`)                       |
+| `--scp-cg-carousel-button-background-color` | Fill color of the prev/next buttons (default: `#FFF`)                     |
+| `--scp-cg-carousel-button-border-color`     | Border color of the prev/next buttons (default: `#BBB`)                   |
+| `--scp-cg-carousel-button-horizontal-offet` | Horizontal offset of the buttons from the carousel edge (default: `10px`) |
+
+> Note: `--scp-cg-carousel-button-horizontal-offet` is intentionally spelled with a single `s` — it must match the variable name used in the theme code.
+
+#### Carousel — Arrows
+
+Controls the chevron icon drawn inside each navigation button.
+
+| Variable                                | Purpose                                              |
+| --------------------------------------- | ---------------------------------------------------- |
+| `--scp-cg-carousel-arrow-size`          | Length of the arrow chevron (default: `9px`)         |
+| `--scp-cg-carousel-arrow-color`         | Color of the arrow (default: `#000`)                 |
+| `--scp-cg-carousel-arrow-thickness`     | Thickness of the chevron strokes (default: `2px`)    |
+| `--scp-cg-carousel-arrow-bar-thickness` | Thickness of the optional arrow bar (default: `2px`) |
+| `--scp-cg-carousel-arrow-bar-width`     | Width of the optional arrow bar (default: `9px`)     |
+
+#### Carousel — Scroll Indicator
+
+The track shown below the carousel that reflects the scroll position.
+
+| Variable                                           | Purpose                                         |
+| -------------------------------------------------- | ----------------------------------------------- |
+| `--scp-cg-carousel-scroll-indicator-display`       | Show or hide the scroll indicator (e.g. `none`) |
+| `--scp-cg-carousel-scroll-indicator-height`        | Height of the indicator track (default: `5px`)  |
+| `--scp-cg-carousel-scroll-indicator-background`    | Background color of the track (default: `#DDD`) |
+| `--scp-cg-carousel-scroll-indicator-border-radius` | Rounded corners for the track (default: `3px`)  |
+| `--scp-cg-carousel-scroll-indicator-margin`        | Spacing around the track (default: `6px 0`)     |
+
+#### Carousel — Scrollbar Thumb
+
+The draggable handle inside the scroll indicator.
+
+| Variable                                 | Purpose                                                                |
+| ---------------------------------------- | ---------------------------------------------------------------------- |
+| `--scp-cg-carousel-scrollbar-background` | Color of the scrollbar thumb (default: `#777`)                         |
+| `--scp-cg-carousel-scrollbar-width`      | Width of the scrollbar thumb (default: `clamp(50px, 15%, 200px)`)      |
+| `--scp-cg-carousel-scrollbar-left`       | Left position of the thumb (advanced; usually computed automatically)  |
+| `--scp-cg-carousel-scrollbar-right`      | Right position of the thumb (advanced; usually computed automatically) |
+
+#### Carousel — Items
+
+Controls the sizing of each card slide inside the carousel.
+
+| Variable                       | Purpose                                                                           |
+| ------------------------------ | --------------------------------------------------------------------------------- |
+| `--scp-cg-carousel-item-flex`  | Flex shorthand for each item (controls how slides size to fit `--scp-cg-columns`) |
+| `--scp-cg-carousel-item-width` | Explicit width of each carousel item                                              |
 
 :::note
 
