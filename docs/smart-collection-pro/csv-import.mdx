@@ -159,6 +159,18 @@ Nesting `logicalGroup` objects inside `children` is how you replicate the sub-gr
 }
 ```
 
+### Folders
+
+Smart Collection Pro lets you create folders — virtual collections that don't have a Shopify collection attached. They're included in exports and imports just like regular collections.
+
+Folder handles use a `scp.folder:` prefix, for example `scp.folder:winter-sales`. You can use them in either the `collection_handle` or `parent_collection_handle` column, just like a regular collection handle.
+
+A few things to keep in mind:
+
+- Folders don't create a Shopify collectionm, they never need to exist in Shopify before importing.
+- Folders can only be root collections. Setting a `parent_collection_handle` on a folder will result in an error when reviewing the import.
+- If a folder with the same handle already exists, the import will update its title and filters. Otherwise, it will be created.
+
 ### The easiest way to get the right JSON
 
 The filter JSON format is not fully documented. Rather than writing it from scratch, the recommended approach is to **set up the conditions you want using the app's visual editor**, then export your collections and copy the `filters` value from the exported CSV. This guarantees the JSON is valid and correctly formatted.
