@@ -20,9 +20,9 @@
   }
 
   path {
-    animation:
-      flicker 3s ease-in-out infinite alternate,
-      flicker-opacity 2s ease-in-out infinite;
+    /* animation: */
+    /*   flicker 3s ease-in-out infinite alternate, */
+    /*   flicker-opacity 2s ease-in-out infinite; */
     transform-origin: bottom; /* Flame grows from the base */
   }
 }
