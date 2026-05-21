@@ -31,21 +31,6 @@ jobs:
       # CHECKOUT
       - name: Checkout
         uses: actions/checkout@v4
-      # NODE
-      - name: Enable Corepack
-        run: corepack enable
-      - name: Setup NodeJS
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: 'yarn'
-      # BUILD
-      - name: Install dependencies
-        run: yarn install --immutable
-        env:
-          CI: true
-      - name: Build
-        run: yarn build
       # GH PAGES
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -53,7 +38,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload entire repository
-          path: './build'
+          path: './static'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
