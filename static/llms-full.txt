@@ -1,0 +1,1509 @@
+# BazaarForge
+
+> Shopify Innovations Tailored for Real-World Challenges
+
+This file contains all documentation content in a single document following the llmstxt.org standard.
+
+## Breadcrumb Navigation
+
+### Helping Customers Find Their Way
+
+The **Breadcrumb** app blocks add breadcrumb navigation to your store, built from the collection hierarchy you've configured in the app.
+They dynamically reflect the parent-child relationships between your collections, giving customers a clear path through your catalog.
+
+Smart Collection Pro provides two breadcrumb blocks:
+
+- **Collection Breadcrumb**: Displays the collection path on collection pages
+- **Product Breadcrumb**: Displays the collection path on product pages, linking the product back to its collection
+
+For example, a customer browsing a product might see **Home > Summer Sale > Beachwear > Beach Towel Set**, making it easy to navigate back up through your catalog.
+
+### Adding the Collection Breadcrumb
+
+#### How to Enable Breadcrumb Navigation on Collection Pages
+
+##### 1. Open your **Online Store** theme editor
+
+![theme editor screenshot](./img/breadcrumb/theme-menu.png)
+
+##### 2. In the top bar, select the **Collections** template
+
+![theme editor screenshot](./img/breadcrumb/theme-template-collection.png)
+
+##### 3. From the left menu, click **Add section** and select **Breadcrumb** from the **Smart Collection Pro** app
+
+![theme editor screenshot](./img/breadcrumb/theme-section.png)
+
+##### 4. Configure the breadcrumb settings from the right menu
+
+You can adjust various settings such as font size, separator style, and spacing directly from the theme editor.
+
+![theme editor screenshot](./img/breadcrumb/configure-breadcrumb.png)
+
+Once added, the breadcrumb navigation will dynamically reflect the collection hierarchy you've configured, making it easier for customers to navigate your store.
+
+---
+
+### Adding the Product Breadcrumb
+
+A **Product Breadcrumb** block is also available for product pages. It works the same way as the collection breadcrumb, but displays the collection path leading to the current product. This helps customers understand where the product sits within your catalog and navigate back to the relevant collection.
+
+To add it, follow the same steps as above but select the **Products** template instead of **Collections**, and choose the **Product Breadcrumb** block from the **Smart Collection Pro** app.
+
+#### Collection Priority on Product Pages
+
+Because a single product can belong to multiple collections, the breadcrumb needs to pick one to display. By default, the app handles this automatically. If you want control over which collection appears, you can set up a priority list.
+
+To configure collection priority, open the **Smart Collection Pro** app in your Shopify admin and navigate to the **Breadcrumbs** section from the left menu. From there, you can create an ordered list of collections. Collections at the top of the list take priority.
+
+You don't need to add every collection. If a collection isn't in the list, the app will check whether any of its parent collections are listed and use that priority instead. We recommend keeping the list short and setting priority on top-level collections whenever possible, rather than trying to manage every subcollection individually.
+
+:::tip
+Choosing the right collection for your product breadcrumb can help boost the SEO of your Shopify store. The collection linked in the breadcrumb becomes part of the page's structured data and navigation signals, reinforcing the relationship between your products and collections in search engines. Prioritizing your most important collections ensures they receive the strongest SEO benefit.
+:::
+
+---
+
+### Structured Data & SEO
+
+Smart Collection Pro automatically adds **structured data** ([JSON-LD](https://developers.google.com/search/docs/appearance/structured-data/breadcrumb)) to your breadcrumb, following Google's recommended format.
+
+This structured data helps search engines understand your store's hierarchy and can result in **breadcrumb-rich results** appearing directly in search engine results pages (SERPs). This gives your Shopify store better visibility and click-through rates.
+
+There's nothing to configure: as soon as you add a breadcrumb block to your theme, the structured data is included automatically.
+
+---
+
+### Advanced Customization
+
+If the built-in configuration options don't meet your needs, you can use custom CSS variables to fine-tune the appearance of your breadcrumbs.
+
+#### CSS Selectors
+
+The two breadcrumb blocks use different tag and class selectors:
+
+| Breadcrumb       | Tag selector                      | Container class                        |
+| ---------------- | --------------------------------- | -------------------------------------- |
+| Collection pages | `smart-collection-pro-breadcrumb` | `.app-block-scp-collection-breadcrumb` |
+| Product pages    | `scp-product-breadcrumb`          | `.app-block-scp-product-breadcrumb`    |
+
+Both blocks support the same CSS variables listed below. You can target them individually or style them together.
+
+#### How to Add Custom CSS
+
+##### 1. From the theme editor, open **Theme settings** (usually at the bottom of the left sidebar)
+
+##### 2. Scroll down to the **Custom CSS** section
+
+![css edit screenshot](./img/collection-grid/custom-css-editor.png)
+
+##### 3. Add your custom styles to the text field
+
+**Basic example** - Make the current page label bold and remove underlines from crumb links on both breadcrumbs:
+
+```css
+smart-collection-pro-breadcrumb,
+scp-product-breadcrumb {
+  --scp-bc-current-font-weight: 700;
+  --scp-bc-crumbs-text-decoration: none;
+}
+```
+
+**Advanced example** - Different styles for mobile and desktop using a container query:
+
+```css
+/* This is required to get the container query below to work */
+.app-block-scp-collection-breadcrumb,
+.app-block-scp-product-breadcrumb {
+  container-type: inline-size;
+  container-name: breadcrumb;
+}
+
+/* Desktop style */
+smart-collection-pro-breadcrumb,
+scp-product-breadcrumb {
+  --scp-bc-crumbs-font-size: 1rem;
+}
+
+/* Mobile style */
+@container breadcrumb (max-width: 750px) {
+  smart-collection-pro-breadcrumb,
+  scp-product-breadcrumb {
+    --scp-bc-crumbs-font-size: 0.85rem;
+    --scp-bc-margin-block: 0.5rem;
+  }
+}
+```
+
+##### 4. Click **Save** to apply your changes
+
+Your custom styling will now be applied to the breadcrumbs throughout your store.
+
+#### Available CSS Variables
+
+The breadcrumb is made up of several parts: the **prefix** (typically "Home"), one or more **crumb** links, a **parent** (the last link before the current page), **separators** between items, and the **current** page label.
+
+The variables follow an inheritance model: **crumbs** styles apply to all items by default, and individual parts (prefix, parent, current) inherit from crumbs unless explicitly overridden.
+
+##### Layout
+
+| Variable                | Purpose                                                                                                                                                                |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--scp-bc-margin-block` | Margin above and below the breadcrumb. Overrides the value from the theme editor settings. Best used inside media or container queries for responsive adjustments      |
+| `--scp-bc-font-size`    | Base font size for all breadcrumb elements. Overrides the value from the theme editor settings. Best used inside media or container queries for responsive adjustments |
+
+:::tip
+The **margin-block** and **font-size** overrides are best reserved for targeting specific breakpoints (e.g. mobile vs. desktop) through media or container queries. For general use, it's recommended to keep these driven by the theme editor settings.
+:::
+
+##### Separator Styling
+
+Applies only to the separator characters between breadcrumb items (e.g. `/` or `>`).
+
+| Variable                         | Purpose                   | Default                 |
+| -------------------------------- | ------------------------- | ----------------------- |
+| `--scp-bc-separator-font-size`   | Font size of separators   | Inherits base font size |
+| `--scp-bc-separator-font-weight` | Font weight of separators | `400`                   |
+
+##### Crumbs Styling
+
+Applies to **all** breadcrumb items, including the prefix, the parent, and the current page label. Each of those can override these values individually using the variables below.
+
+| Variable                          | Purpose                        | Default                 |
+| --------------------------------- | ------------------------------ | ----------------------- |
+| `--scp-bc-crumbs-font-size`       | Font size of crumb items       | Inherits base font size |
+| `--scp-bc-crumbs-text-decoration` | Text decoration of crumb items | `underline`             |
+| `--scp-bc-crumbs-font-weight`     | Font weight of crumb items     | `400`                   |
+
+##### Prefix Styling
+
+Overrides crumbs styling for the **root item** only. This is typically the "Home" link at the start of the breadcrumb.
+
+| Variable                          | Purpose                       | Default              |
+| --------------------------------- | ----------------------------- | -------------------- |
+| `--scp-bc-prefix-font-size`       | Font size of the prefix       | Inherits from crumbs |
+| `--scp-bc-prefix-text-decoration` | Text decoration of the prefix | Inherits from crumbs |
+| `--scp-bc-prefix-font-weight`     | Font weight of the prefix     | Inherits from crumbs |
+
+##### Parent styling
+
+Overrides crumbs styling for the **last link** in the breadcrumb, i.e. the final crumb before the current page label.
+
+| Variable                          | Purpose                            | Default              |
+| --------------------------------- | ---------------------------------- | -------------------- |
+| `--scp-bc-parent-font-size`       | Font size of the last crumb link   | Inherits from crumbs |
+| `--scp-bc-parent-text-decoration` | Text decoration of the last crumb  | Inherits from crumbs |
+| `--scp-bc-parent-font-weight`     | Font weight of the last crumb link | Inherits from crumbs |
+
+##### Current Page Styling
+
+Overrides crumbs styling for the **current page** label. This is the last item in the breadcrumb and is not a link.
+
+| Variable                       | Purpose                             | Default              |
+| ------------------------------ | ----------------------------------- | -------------------- |
+| `--scp-bc-current-font-size`   | Font size of the current page label | Inherits from crumbs |
+| `--scp-bc-current-font-weight` | Font weight of the current page     | Inherits from crumbs |
+
+---
+
+## Changelogs
+
+Stay up to date with the latest improvements to Smart Collection Pro.
+
+#### September 25, 2026
+
+- **Folders can now be placed anywhere in the hierarchy**: Folders were previously restricted to the root of the tree. You can now nest them under any collection or folder, at any depth. [See folder documentation](./folders.mdx)
+- **New way to convert a collection to a folder**: On a collection's edit page, the hierarchy card now has an "Advanced" menu with a **Convert to folder…** action, which opens a confirmation modal (with the option to also delete the underlying Shopify collection).
+
+#### September 24, 2026
+
+- **Category filter now supports multiple values**: The category filter can now take a list of categories instead of a single category.
+- **Attach to existing smart collections**: Historically, when attaching to an existing collection the app could only attach to manual collections. From now on it can also attach to existing smart collections, and has a helper to import existing conditions.
+
+#### September 23, 2026
+
+- **Compare-at price filter: new in stock option**: We added a checkbox to the compare-at price filter to force matching variants to be in stock as well.
+
+#### September 22, 2026
+
+- **Reorganized collection creation and edition page**: We rearranged the page to make it better organized and easier to navigate. You can now see and edit the collection's **image** directly from the page, and on the creation page you can also edit the **publication channels**. This is the first of a series of changes we'll be rolling out to improve this page.
+
+#### September 16, 2026
+
+- **Settings reorganized**: We grouped all settings under a new "Settings and theme" page.
+- **New setting: Collection title**: We added a setting to customize the collection title shown in the breadcrumb and collection grid app blocks, using a text metafield.
+- **New setting: Collection grid image**: We added a setting to customize the image shown in the collection grid app block, using an image metafield.
+
+#### September 15, 2026
+
+- **New feature: HTTP API**: We added an API to let developers connect the app with other software.
+  It lets you create, read, update, and delete managed collections.
+  This is an early preview: it's activated on a per-account basis after we've discussed your use case and approved access. Reach out to us if you'd like to try it.
+
+#### September 9, 2026
+
+- **New filter: Sellable online quantity**: Filter collections based on a variant's quantity that is available for selling online.
+  In other terms the available quantity across locations enabled for online fulfillment.
+- **Bug fix**: Fixed a bug where updating a managed collection's title would not update the title of its source.
+  The source title is now correctly kept in sync.
+
+#### September 8, 2026
+
+This is a major release that encompasses a lot of internal changes to the app
+in order to adapt it to Shopify's new collection source system.
+We've also written a short introduction to this update in a dedicated page:
+[How The App Manages Your Products](./sources.mdx).
+
+This release also brings some minor changes:
+
+- We've worked on making the app faster than before when you create or update a managed collection.
+- We've fixed a bug with batch deletion, which could cause the app to hang indefinitely when trying to delete multiple collections at once.
+- When deleting a single managed collection, there is now a checkbox to also delete the collection on Shopify.
+- We've updated some links in the app to make it possible to open the page in a new tab using regular shortcuts such as `ctrl + click`.
+- We've fixed a bug that could, in some occasions, cause the breadcrumb and hierarchy's metafields to get out of sync.
+
+#### July 1, 2026
+
+- **New filters**: Added two new filters: **Variant SKU** and **Product Status** (active, archived, draft, unlisted).
+  You can now create collections based on patterns in your SKU. For example, if T-shirts have a SKU like TS-1234, you can now set:
+  "SKU starts with TS-", and with the new status filter, restrict the collection to include only active products.
+  This can help with the product limits you may run into when a collection includes all archived and draft products.
+
+#### June 30, 2026
+
+- **New filter: is (not) in collection**: You can now add a condition to filter on products that
+  are or aren't in another managed collection. For example, create a collection "Discount," then a collection "Summer Sale."
+  You can configure Summer Sale with the filters "Is in collection Discount AND has tag summer."
+
+#### June 19, 2026
+
+- **New feature: combine sub-collections**: It's now possible to create a collection that
+  will pull in product from its sub-collections automatically.
+  You no longer have to set all tags on a parent collection and repeat them on each child collection.
+  For example you can now configure a collection "Women clothings" the combines from its sub-collections, add the filter "tag is 'women'".
+  Then add two sub-collection "Dress" and "Tshirts", the collection "Women clothing" will automatically have all women's tshirts and dresses.
+
+#### May 27, 2026
+
+- **Improved condition for variant title**: Multiple variant titles can be selected at once.
+
+#### May 16, 2026
+
+- **New early access feature: Fitler templates**.
+  Filter tempaltes are a reusable set of conditions that will re-propagate to all collections after updating them.
+
+#### May 5, 2026
+
+- **Improved conditions UI**: The condition interface now supports selecting multiple items at once, making it faster to configure conditions and keeping the list cleaner and easier to read and navigate. You can also paste a list of values (one per line) to populate it quickly. This applies to the following conditions:
+  - Tag (equal)
+  - Product Type (equal)
+  - Vendor (equal)
+  - Metafield of type text or list of texts (equal)
+
+#### May 2, 2026
+
+- **New feature: Folders**: You can now create folders to organize your collections. A folder is a virtual collection that groups sub-collections together without creating a Shopify collection on its own. It doesn't contain products directly, doesn't appear in breadcrumbs, and doesn't count toward your collection limit. Folders can only be placed at the root of the hierarchy, and their filters will apply to all their sub-collections.
+  [See folder documentation](./folders.mdx)
+- **New setting: Collection list navigation**: We added a setting to choose how collections are displayed on the home page. By default all collections are shown in a full tree view. You can now switch to a "Root only" mode where only top-level collections are shown initially, making it easier to navigate stores with a large number of collections. Click a collection to reveal its sub-collections. This was designed to play well with folders.
+- **Enhanced user interface**: We added buttons to quickly create a child collection, both from the collection edit screen and from
+  the collection list rows.
+
+#### April 29, 2026
+
+- **New date operators**: Added a new operators **"is within next X days"** for date filters,
+  making it possible to dynamically filter product by date fields or metafields when the date is between today and a number of days in the future.
+
+#### April 18, 2026
+
+- **New date operators**: Added two new operators **"is before"** and **"is after"** for date filters.
+- **Enhanced synchronization speed**: The collection synchronization has been improved to be faster,
+  notablye for stores with a large catalog or using many time conditions.
+
+#### April 16, 2026
+
+- **Added XLSX files to import/export**: It's now possible to export XLSX files and use XLSX files for imports.
+  Until now only CSV were supported.
+
+#### April 10, 2026
+
+- **Added admin block for collection page**: You can now see the status of a collection managed by the app,
+  directly from the Shopify collection page. To do so open any collection, scroll to the bottom of the page,
+  where you will find a button to a add admin blocks.
+
+#### April 9, 2026
+
+- **Added metafield value suggestiongs**:
+  Metafield of type text now suggest options as you type, making it faster and easier to create condition based on metafield values.
+- **Added empty filters on product type**: You can now filter products based on whether their product type is empty or not empty
+
+#### April 8, 2026
+
+- **Improved product category search**:
+  When using the product category filter, the search now returns all available categories,
+  not just the ones already used by products in your store.
+
+#### April 7, 2026
+
+- **Added a setting to hide empty collections**: We added a setting on the collection grid to hide collections that are empty.
+
+#### April 2, 2026
+
+- **Increased collection limits for each plan**: The maximum number of collections has been increased across all plans from 20 to 25, 80 to 100, 200 to 250, and 1000 to 2000..
+- **Added bulk deletion**: You can now select multiple collections and delete them all at once.
+
+#### April 1, 2026
+
+- **Added more customization to breadcrumb app block**: We added various css variables to help customizing font on the breadcrumb app blocks.
+  [See documentation](./changelogs.mdx).
+
+#### March 11, 2026
+
+- **Added a setting to show a collection carousel**: We added a setting on the collection grid allowing to display collections in a scrollable horizontal list.
+
+#### March 9, 2026
+
+- **Added option for sub-categories**: When using the product category filter, we added an option to let it match all of its sub-categories
+- **Product type list**: When adding a condition to filter products by product type, it will now display a list of product types to provide auto-completion.
+
+#### February 26, 2026
+
+- **Added breadcrumb prefix url**: We added a setting to customize the link of the breadcrumb prefix.
+- **Added breadcrumb structured data**: We added a structured data using the google-recommended JSON-LD format to improve search results on google.
+
+#### February 13, 2026
+
+- **Added theme status on homepage**: We added on on the app's homepage the list of the app blocks that are currently installed.
+
+#### January 27, 2026
+
+- **Colection grid**: We made the default background color of the title slightly darker to ensure good readibility of the title.
+  Also added a CSS variable to control it: `--scp-cg-title-wrapper-background-color`.
+
+#### January 26, 2026
+
+- **Collection grid**: We added the ability to order the collections either by title or by product count.
+
+#### January 16, 2026
+
+- **Collection grid**: We fixed the collection grid that was shrinking to minimal size and didn't display images properly on some themes.
+- **Product breadcrumb**: We fixed the product breadcrumb not always showing the right collection matching the priority list defined in the app settings.
+
+#### January 2, 2026
+
+- **Variant title and availability**: When adding a condition to filter on variant's title, there will now be a checkbox to force matching variants
+  to be in stock as well.
+
+#### December 31, 2025
+
+- **Bug fix**: We fixed a bug that prevented collections from being saved properly when one of its sub-collection was deleted from the store.
+
+#### December 26, 2025
+
+- **Vendor list**: When adding a condition to filter products by vendor, it will now display a list of vendor to provide auto-completion.
+
+#### December 20, 2025
+
+- **New synchronization system**: We released a new synchronization system that is much faster for large stores.
+  The app can now handle stores of any size. We are migrating stores to the new system little by little to ensure
+  stability for everyone during the process.
+
+#### December 4, 2025
+
+- **Breadcrumb customization**: Added an option to hide products name from breadcrumbs and improved mobile styling with new customization options for font size and spacing using custom CSS code.
+
+#### December 1, 2025
+
+- **Product category filter**: You can now filter products based on whether their category is empty or not empty.
+
+#### November 12, 2025
+
+- **Breadcrumb settings**: Added a new settings page to define priority for breadcrumbs and customize how they appear.
+- **Collection breadcrumb customization**: You can now change the root label for collection breadcrumbs (defaults to "home").
+- **Product breadcrumb app block**: Added a new app block for displaying product breadcrumbs in your theme.
+- **New filter**: Added a new **media count** filter to select products based on the number of images or media files they have.
+
+#### October 26, 2025
+
+- **Import improvements**: Enhanced support for importing collections with improved feedback and error messages.
+
+#### September 19, 2025
+
+- **Duplicate collection branch**: New tool to duplicate a full collection branch (early access)
+
+#### August 30, 2025
+
+- **New filter**: Added an **inventory tracking** filter to select products based on whether inventory tracking is enabled or disabled.
+
+#### August 21, 2025
+
+- **Nested collections fix**: Fixed a bug that prevented parent collections from being properly processed for products at depth 3 or deeper in the hierarchy.
+
+#### August 15, 2025
+
+- **Collection grid improvements**: Enhanced the collection grid app block with more settings.
+
+#### August 13, 2025
+
+- **Product with over 100 variants**: Fixed processing for products having more than 100 variants (extra variants were skipped).
+
+#### August 6, 2025
+
+- **Settings page fix**: Fixed an issue that prevented saving settings.
+- **Parent collection picker fix**: Fixed the parent collection picker to properly show a modal when no collections are available.
+- **Increased collection limits**: Raised the maximum number of collections allowed for each plan.
+
+#### July 21, 2025
+
+- **New date operator**: Added a new operator **"is more than X days ago"** for date filters, making it easier to filter products by relative dates.
+- **Empty/not empty for dates**: The "is empty" and "is not empty" operators are now available for date metafields and product publish dates.
+
+#### June 30, 2025
+
+- **Root collection metafields**: Added new metafields for storing up to 4 root collections, with updated theme extension support for better collection hierarchy management.
+- **Date filter fix**: Fixed the "relative last days" filter to correctly exclude future dates.
+
+#### June 26, 2025
+
+- **Duplicate collections**: You can now duplicate existing managed collections, making it faster to create similar collections with pre-filled conditions.
+
+#### June 24, 2025
+
+- **Import/Export tool**: Added a new import and export tool for managed collections (early access).
+
+#### June 21, 2025
+
+- **Date and datetime metafield support**: Added support for filtering on **date** and **date_time** metafield types.
+- **Swedish language**: The app is now available in Swedish.
+- **Discount comparison operators**: Added new operators to filter discounts by percentage - **"less than X%"** and **"greater than X%"**.
+
+#### June 20, 2025
+
+- **Collection creation improvements**: Fixed redirect issues after creating collections and added a helpful banner suggesting you create another managed collection.
+- **Better keyboard navigation**: Improved keyboard interaction for condition groups and filters.
+
+#### June 19, 2025
+
+- **Settings page**: Added a new settings page where you can customize the app's homepage and choose which page you see when you first open the app.
+
+#### June 18, 2025
+
+- **Warning for missing collection**: If a collection is manually deleted from Shopify and was previously linked to a managed collection in the app, a warning message will now appear on the app's homepage. This helps you identify and fix managed collections that no longer have an associated Shopify collection.
+
+#### June 16, 2025
+
+- **Search collections**: We’ve added a text field to the managed collections list so you can search for the collection you’re looking for.
+
+#### June 8, 2025
+
+- **New metafield support**: We've added support for metafields that store **metaobject** and **list of metaobjects**. They can be used to filters products that have a given metaobject.
+
+#### June 5, 2025
+
+- **Fixed tag filtering**: When you use "is not equal" or "does not contain" for tags, the condition now correctly skips any product with at least one tag matching the condition.
+- **Renamed and added stock filters**: The old **Inventory stock** filter is now called **Total inventory stock**, and there’s a new **Variant inventory stock** filter so you can choose products based on the stock of each variant.
+
+#### June 3, 2025
+
+- **Improved metafields search**: When selecting a condition (product field or metafield), the list is now searchable. Additionally, product metafields and variant metafields are divided into two sections for easier navigation.
+
+#### June 2, 2025
+
+- **New filtering operators**: In addition to the existing operators such as "equal," "greater than," etc., we've added new operators **"is empty"** and **"is not empty"**. They have been added for all **metafields** and the product field **"compare-at price"**, allowing filtering of blank data.
+- **New filter**: We've added a new filter named **"discount"**. It allows filtering product that **are** or **are not** on discount.
+
+#### May 30, 2025
+
+- **Numerous performance improvments**: Smart Collection Pro is now more stable for larger stores.
+
+#### May 26, 2025
+
+- **New metafield support**: We've added support for metafields that store **booleans**.
+
+#### April 23, 2025
+
+- **New translations available**: The app is now available in German, Dutch and Turkish.
+
+#### April 21, 2025
+
+- **Better support for special characters**: We've improved how the app handles characters from non latin scripts and special characters like French accents, the German “ß” (now matched with “ss”), and Turkish letters that use combined characters (like accented “g”), Asian scripts. This means searches and filters will behave more naturally across languages, including French, Czech, German, Turkish, Greek, Japanase, Korean, Chinese...
+
+#### April 18, 2025
+
+- **Filter by product dates**: You can now filter products based on their **creation or publish date**, making it possible to build, for example, collections that list products released in the last 30 days.
+
+#### April 15, 2025
+
+- **New metafield support**: We've added support for metafields that store **decimals** and **integers**.
+
+#### April 3, 2025
+
+- **Smarter tag selection**: Tag fields now suggest options as you type, so adding tags is faster and easier.
+
+#### April 2, 2025
+
+- **New metafield support**: We've added support for metafields that store **lists of single-line text**.
+
+#### March 27, 2025
+
+- **New translations available**: The app is now available in Czech, French, Italian, Spanish, Japanese, Korean, Danish, and Portuguese.
+
+---
+
+## Collection Grid
+
+### Displaying Collections in Your Store
+
+The **Collection Grid** app block lets you showcase collections in a visually appealing grid layout.
+It automatically adapts to your store's context:
+
+- **On collection pages**: Displays child collections (subcollections) of the current collection
+- **On other pages**: Shows root-level collections (those without a parent collection)
+
+This is particularly useful when you want to display subcollection images above your product list,
+helping customers navigate deeper into your catalog.
+
+![Collection grid demo screenshot](./img/collection-grid/collection-grid-demo1.png)
+
+### Adding Collection Grid to Your Theme
+
+#### How to Enable Collection Grid
+
+##### 1. Open your **Online Store** theme editor
+
+![theme editor screenshot](./img/breadcrumb/theme-menu.png)
+
+##### 2. Navigate to the page where you want to add the collection grid
+
+- For collection pages, select the **Collections** template from the top bar
+- For other pages (like your homepage), navigate to that page
+
+![theme editor screenshot](./img/breadcrumb/theme-template-collection.png)
+
+##### 3. From the left menu, click **Add block** or **Add section** and select **Collection Grid** from the **Smart Collection Pro** app
+
+![theme editor screenshot](./img/collection-grid/theme-add-section.png)
+
+##### 4. Configure the grid settings from the right menu
+
+You can adjust various settings such as spacing, layout, number of columns, and display options directly from the theme editor.
+
+![theme editor screenshot](./img/collection-grid/configure-collection-grid.png)
+
+---
+
+### Advanced Customization
+
+If the built-in configuration options don't meet your needs, you can use custom CSS variables to fine-tune the appearance of your collection grid.
+
+#### How to Add Custom CSS
+
+##### 1. From the theme editor, open **Theme settings** (usually at the bottom of the left sidebar)
+
+##### 2. Scroll down to the **Custom CSS** section
+
+![css edit screenshot](./img/collection-grid/custom-css-editor.png)
+
+:::warning
+
+Shopify applies a hard limit of 1,500 characters on Custom CSS.
+If you need more than 1,500, it's possible to update the theme's code directly.
+Our team can help you achieve this. Feel free to contact us.
+
+:::
+
+##### 3. Add your custom styles to the text field
+
+**Basic example** - Customize title color and padding:
+
+```css
+scp-collection-grid {
+  --scp-cg-title-color: #342245;
+  --scp-cg-title-padding: 2rem;
+}
+```
+
+**Advanced example** - Different styles for mobile devices:
+
+```css
+/* This is required to get the container query below to work */
+.app-block-scp-collection-grid {
+  container-type: inline-size;
+  container-name: collection-grid;
+}
+
+/* Desktop style */
+scp-collection-grid {
+  --scp-cg-title-padding: 1rem;
+}
+
+/* Mobile style */
+@container collection-grid (max-width: 750px) {
+  scp-collection-grid {
+    --scp-cg-title-padding: 0;
+  }
+}
+```
+
+##### 4. Click **Save** to apply your changes
+
+Your custom styling will now be applied to the collection grid throughout your store.
+
+#### Available CSS Variables
+
+##### Title Styling
+
+| Variable                                  | Purpose                                                                          |
+| ----------------------------------------- | -------------------------------------------------------------------------------- |
+| `--scp-cg-title-color`                    | Text color of collection titles                                                  |
+| `--scp-cg-title-background-color`         | Background color behind titles: adapts to the title width (default: transparent) |
+| `--scp-cg-title-wrapper-background-color` | Background color behind titles: fills the whole space horizontally               |
+| `--scp-cg-title-padding`                  | Spacing inside the title area                                                    |
+| `--scp-cg-title-margin`                   | Spacing around the title area                                                    |
+| `--scp-cg-title-border-radius`            | Rounded corners for title background                                             |
+| `--scp-cg-title-text-wrap`                | How the title text wraps (e.g. `nowrap`, `balance`)                              |
+
+##### Card Styling
+
+| Variable                              | Purpose                                                      |
+| ------------------------------------- | ------------------------------------------------------------ |
+| `--scp-cg-background-color`           | Background color of collection cards                         |
+| `--scp-cg-padding`                    | Inner spacing of the card (must include a unit, e.g. `10px`) |
+| `--scp-cg-border-width`               | Thickness of card border                                     |
+| `--scp-cg-border-color`               | Color of card border                                         |
+| `--scp-cg-border-style`               | Border style (solid, dashed, etc.)                           |
+| `--scp-cg-card-width`                 | Outer width of each card                                     |
+| `--scp-cg-card-height`                | Outer height of each card                                    |
+| `--scp-cg-thumbnail-object-fit`       | How images fit within their container (cover, contain, etc.) |
+| `--scp-cg-thumbnail-background-color` | Background color behind collection images                    |
+| `--scp-cg-thumbnail-height`           | Height of the card thumbnail area                            |
+| `--scp-cg-thumbnail-display`          | Display mode of the thumbnail (e.g. `none` to hide it)       |
+| `--scp-cg-thumbnail-aspect-ratio`     | Aspect ratio applied to thumbnails (e.g. `1 / 1`, `16 / 9`)  |
+| `--scp-cg-image-width`                | Width of the image inside the thumbnail                      |
+
+##### Card Inner Layout
+
+Controls the flex container that wraps the card's contents (thumbnail, title, etc.).
+
+| Variable                              | Purpose                                                             |
+| ------------------------------------- | ------------------------------------------------------------------- |
+| `--scp-cg-card-inner-width`           | Width of the inner content wrapper                                  |
+| `--scp-cg-card-inner-height`          | Height of the inner content wrapper                                 |
+| `--scp-cg-card-inner-display`         | Display mode of the inner wrapper (default: `flex`)                 |
+| `--scp-cg-card-inner-flex-direction`  | Direction of inner content (`column`, `row`, etc.)                  |
+| `--scp-cg-card-inner-justify-content` | Main-axis alignment of inner content (`center`, `space-between`, …) |
+| `--scp-cg-card-inner-align-items`     | Cross-axis alignment of inner content (`center`, `flex-start`, …)   |
+
+##### Grid & Layout
+
+Controls how cards are arranged on the page.
+
+| Variable                        | Purpose                                                  |
+| ------------------------------- | -------------------------------------------------------- |
+| `--scp-cg-columns`              | Override the number of columns set in the block settings |
+| `--scp-cg-grid-display`         | Display mode for the container (`grid` or `flex`)        |
+| `--scp-cg-grid-flex-wrap`       | Wrap behavior when in flex mode (`wrap`, `nowrap`)       |
+| `--scp-cg-grid-justify-content` | Horizontal alignment of items inside the container       |
+| `--scp-cg-grid-margin-left`     | Left margin applied to the grid                          |
+| `--scp-cg-grid-margin-right`    | Right margin applied to the grid                         |
+
+##### Carousel — Navigation Buttons
+
+Used when the block is displayed as a carousel.
+
+| Variable                                    | Purpose                                                                   |
+| ------------------------------------------- | ------------------------------------------------------------------------- |
+| `--scp-cg-carousel-button-size`             | Diameter of the prev/next buttons (default: `34px`)                       |
+| `--scp-cg-carousel-button-background-color` | Fill color of the prev/next buttons (default: `#FFF`)                     |
+| `--scp-cg-carousel-button-border-color`     | Border color of the prev/next buttons (default: `#BBB`)                   |
+| `--scp-cg-carousel-button-horizontal-offet` | Horizontal offset of the buttons from the carousel edge (default: `10px`) |
+
+##### Carousel — Arrows
+
+Controls the chevron icon drawn inside each navigation button.
+
+| Variable                                | Purpose                                              |
+| --------------------------------------- | ---------------------------------------------------- |
+| `--scp-cg-carousel-arrow-size`          | Length of the arrow chevron (default: `9px`)         |
+| `--scp-cg-carousel-arrow-color`         | Color of the arrow (default: `#000`)                 |
+| `--scp-cg-carousel-arrow-thickness`     | Thickness of the chevron strokes (default: `2px`)    |
+| `--scp-cg-carousel-arrow-bar-thickness` | Thickness of the optional arrow bar (default: `2px`) |
+| `--scp-cg-carousel-arrow-bar-width`     | Width of the optional arrow bar (default: `9px`)     |
+
+##### Carousel — Scroll Indicator
+
+The track shown below the carousel that reflects the scroll position.
+
+| Variable                                           | Purpose                                         |
+| -------------------------------------------------- | ----------------------------------------------- |
+| `--scp-cg-carousel-scroll-indicator-display`       | Show or hide the scroll indicator (e.g. `none`) |
+| `--scp-cg-carousel-scroll-indicator-height`        | Height of the indicator track (default: `5px`)  |
+| `--scp-cg-carousel-scroll-indicator-background`    | Background color of the track (default: `#DDD`) |
+| `--scp-cg-carousel-scroll-indicator-border-radius` | Rounded corners for the track (default: `3px`)  |
+| `--scp-cg-carousel-scroll-indicator-margin`        | Spacing around the track (default: `6px 0`)     |
+
+##### Carousel — Scrollbar Thumb
+
+The draggable handle inside the scroll indicator.
+
+| Variable                                 | Purpose                                                                |
+| ---------------------------------------- | ---------------------------------------------------------------------- |
+| `--scp-cg-carousel-scrollbar-background` | Color of the scrollbar thumb (default: `#777`)                         |
+| `--scp-cg-carousel-scrollbar-width`      | Width of the scrollbar thumb (default: `clamp(50px, 15%, 200px)`)      |
+| `--scp-cg-carousel-scrollbar-left`       | Left position of the thumb (advanced; usually computed automatically)  |
+| `--scp-cg-carousel-scrollbar-right`      | Right position of the thumb (advanced; usually computed automatically) |
+
+##### Carousel — Items
+
+Controls the sizing of each card slide inside the carousel.
+
+| Variable                       | Purpose                                                                           |
+| ------------------------------ | --------------------------------------------------------------------------------- |
+| `--scp-cg-carousel-item-flex`  | Flex shorthand for each item (controls how slides size to fit `--scp-cg-columns`) |
+| `--scp-cg-carousel-item-width` | Explicit width of each carousel item                                              |
+
+:::note
+
+If you need more customization,
+our team is happy to understand your requirements and add the necessary options.
+Feel free to contact us.
+
+:::
+
+---
+
+## Conditions & Product Filtering
+
+When setting up a Managed Collection, you can define rules to automatically include or exclude products. This guide explains how to use **All Conditions**, **Any Condition**, and **Condition Grouping** to fine-tune your collections.
+
+### Any Condition or All Conditions
+
+When configuring conditions, you can choose between **All Conditions** or **Any Condition** to determine how products are filtered into your Managed Collection.
+
+- **All Conditions**: Products must match **every rule** you set.
+- **Any Condition**: Products must match **at least one rule** to be included.
+
+For example, if you select **All Conditions** and set the rules:
+- Title contains **"t-shirt"**
+- Price is **greater than €50**
+
+Only t-shirts priced over €50 will be added.
+
+![parent collection screenshot](./img/conditions/tshirt-and-50.png)
+
+If you select **Any Condition**, a product needs to match **either** rule. This means a product will be included if it’s a t-shirt (regardless of price) or if its price is over €50 (regardless of the title).
+
+![parent collection screenshot](./img/conditions/tshirt-or-50.png)
+
+### Grouping Conditions
+
+Grouping conditions allow you to mix **All Conditions** and **Any Condition** within a single Managed Collection.
+
+For example, let’s refine the previous scenario:
+- Select **All Conditions**
+  - First rule: **Price is greater than €50**
+  - Create a **Condition Group** with **Any Condition** and set:
+    - Title contains **"t-shirt"**
+    - Title contains **"sweater"**
+
+This setup ensures only **t-shirts or sweaters priced over €50** are included.
+
+![parent collection screenshot](./img/conditions/tshirt-or-sweater-and-50.png)
+
+### Flexible and Powerful Filtering
+With these options, you can create highly customized collections that fit any situation. Whether you need strict filtering or a more flexible approach, **Smart Collection Pro** gives you full control over your product organization.
+
+---
+
+## Creating a Managed Collection
+
+With **Smart Collection Pro**, you can create **Managed Collections**, which automatically manage a Shopify collection based on the conditions you configure. Products in these collections are dynamically updated, ensuring they always reflect the latest rules you’ve set.
+
+### Adding a Managed Collection
+
+To get started, click the **Add Managed Collection** button.
+
+![Add collection button screenshot](./img/create-collection/button-add-collection.png)
+
+### Creating and Attaching to a Collection
+
+![New collection screenshot](./img/create-collection/choose-collection.png)
+
+you have two options:
+- Option 1: **Create a new collection** and enter a name for your new collection. This will create a new collection in your store.
+- Option 2: **Use an existing collection**. This will convert the store's collection you select into a Managed Collection.
+
+:::warning
+If you attach to an existing collection, products in this collection will be removed and replaced based on the configured conditions. [See how Smart Collection Pro manages your collections](./sources.mdx) for more detail.
+:::
+
+### Nested Collections
+
+You can assign a **parent collection** by clicking the **pen icon** next to the parent selection field.
+
+![parent collection screenshot](./img/create-collection/parent-collection.png)
+
+When a Managed Collection has a parent, it becomes **nested**, inheriting products from the parent rather than filtering from the entire catalog. This allows for:
+- **A structured hierarchy** that organizes collections more effectively.
+- **Breadcrumb navigation**, making it easier for customers to explore your store.
+
+If no parent is selected, the collection will filter products from the **entire catalog**.
+
+### Configuring Conditions
+
+The next step is to set up filtering conditions. For example, you can select all products where the title contains “t-shirt”.
+
+![condition tshirt screenshot](./img/create-collection/conditions-tshirt.png)
+
+When you select conditions, only products that match the defined criteria will be included in the collection. Any products that do not meet the conditions will be removed. For example, the condition below will ensure that only products with a price higher than €50 are included. Over time, if a product’s price changes, it will be automatically added or removed based on this rule.
+
+![conditions 50€ screenshot](./img/create-collection/conditions-50eur.png)
+
+To find more information on how to configure conditions [see the Guide on Conditions](#)
+
+### Saving and Synchronization
+
+Once you've configured your collection, click **Save**. Synchronization will then begin automatically.
+
+#### Synchronization Time
+The time required for synchronization depends on:
+1. **The size of your catalog** – Larger catalogs take longer to process.
+2. **Your selected plan** – Higher-tier plans have priority and faster synchronization speeds.
+
+Your Managed Collection is now set up and will update dynamically based on your configured rules!
+
+---
+
+## CSV Import & Export
+
+The **CSV Import & Export** feature is designed for merchants who need to migrate a collection hierarchy from one Shopify store to another. Instead of rebuilding your managed collections by hand in the destination store, you can export them as a CSV from the source store and import them into the new one.
+
+This is an **opt-in only feature**, enabled on a per-merchant basis. If you need access, reach out to us and we'll enable it for your store.
+
+Once enabled, a new **Import & Export** entry appears in the left menu of the app inside the Shopify Admin.
+
+![Import & Export menu screenshot](./img/csv/menu-entry.png)
+
+:::warning
+
+Being an early-access feature. It has limited error coverage. If an import fails, it may do so with an unhelpful generic error message. If that happens, contact us with your CSV and we'll help diagnose what went wrong.
+
+:::
+
+---
+
+### Exporting Collections
+
+Exporting gives you a CSV snapshot of all your managed collections — their hierarchy, parent/child relationships, and filter conditions. The main use case is to then import that file into another store, but you can also use it as a reference when building a CSV by hand.
+
+#### How to Export
+
+##### 1. Open the **Import & Export** section from the left menu
+
+##### 2. Click **Export CSV**
+
+The file downloads to your computer. Each row represents one managed collection.
+
+> **Good to know:** The exported CSV contains additional columns (like internal IDs and Shopify resource IDs) that are not used during import. They're there to help you read and understand the file — you don't need to include them if you're building a CSV by hand.
+
+---
+
+### Importing Collections
+
+Importing reads a CSV file and creates managed collections in the app, linking each one to an existing Shopify collection and wiring up the parent/child relationships. This is what you'd run in a destination store after exporting from the source.
+
+#### Before you import
+
+:::danger
+
+The import tool **does not create Shopify collections**. Every collection referenced in your CSV must already exist as a **manual (non-smart) collection** in the destination store before you run the import. If a collection doesn't exist yet, create it manually in Shopify first.
+
+:::
+
+The import only creates managed collections inside the app — it connects them to Shopify collections that already exist in your store, but never creates those collections itself.
+
+For each row in the CSV, the import will:
+
+- Create a managed collection in the app
+- Link it to the existing Shopify collection via its handle
+- Assign its parent based on `parent_collection_handle`
+- Apply the filter conditions from the `filters` field
+
+Each parent collection referenced in your CSV must either already be a managed collection in the app, or appear as its own row in the CSV so it gets created in the same import run.
+
+#### How to Import
+
+##### 1. Open the **Import & Export** section from the left menu
+
+##### 2. Click **Import CSV** and select your file
+
+##### 3. Review the summary and confirm
+
+The app will process the file and create the managed collections. If anything fails, contact us — we can help figure out what went wrong.
+
+---
+
+### CSV File Format
+
+The CSV requires four columns. Any additional columns (like those present in an exported file) are ignored during import.
+
+| Column                     | Description                                                                                                                                                                                                            |
+| -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `collection_handle`        | The handle of the Shopify collection this row maps to. Must already exist as a manual (non-smart) collection in the store.                                                                                             |
+| `collection_title`         | The title of the collection. Not used during import — only included to make error messages easier to read.                                                                                                             |
+| `parent_collection_handle` | The handle of the parent collection. Leave empty for root collections. Must exist as a manual collection in the store, and must either already be a managed collection in the app or appear as its own row in the CSV. |
+| `filters`                  | A JSON object defining the collection's filter conditions. See [The `filters` field](#the-filters-field) below.                                                                                                        |
+
+#### Simple example
+
+Here's what a minimal CSV looks like for a two-level hierarchy — a **Women's Clothing** root collection with a **Dresses** child collection:
+
+```csv
+collection_handle,collection_title,parent_collection_handle,filters
+womens-clothing,Women's Clothing,,"{""name"":""logicalGroup"",""operator"":""and"",""children"":[]}"
+dresses,Dresses,womens-clothing,"{""name"":""logicalGroup"",""operator"":""and"",""children"":[]}"
+```
+
+`parent_collection_handle` is left empty for the root collection. `dresses` references `womens-clothing` as its parent, so the app will nest it underneath. The empty `children` array in the `filters` field means no filter conditions — the collection will include all products from its parent.
+
+---
+
+### The `filters` Field
+
+The `filters` column is the most complex part of the CSV. It contains a JSON object that describes the conditions used to populate the collection — the same rules you'd configure using the visual condition builder in the app.
+
+#### Structure
+
+Every `filters` value must be a `logicalGroup` at the top level. A `logicalGroup` has three properties:
+
+- `"name": "logicalGroup"` — identifies it as a group node
+- `"operator"` — either `"and"` or `"or"`, controlling how its children are evaluated together
+- `"children"` — an array of individual filter conditions, or nested `logicalGroup` objects
+
+Nesting `logicalGroup` objects inside `children` is how you replicate the sub-groups you can build in the visual editor — for example, an outer `or` group that contains an inner `and` group.
+
+**Example** — include all discounted products:
+
+```json
+{
+  "name": "logicalGroup",
+  "operator": "or",
+  "children": [
+    {
+      "name": "discount",
+      "operator": "true",
+      "value": null
+    }
+  ]
+}
+```
+
+**Example** — combine a metafield condition with a price condition using nested groups:
+
+```json
+{
+  "name": "logicalGroup",
+  "operator": "or",
+  "children": [
+    {
+      "name": "logicalGroup",
+      "operator": "and",
+      "children": [
+        {
+          "name": "gid://shopify/MetafieldDefinition/65827537127",
+          "operator": "neq",
+          "value": "8",
+          "metafieldKey": "test_decimal_field",
+          "metafieldName": "test decimal field",
+          "metafieldTypeName": "number_decimal",
+          "metafieldNamespace": "custom",
+          "metafieldOwnerType": "PRODUCT"
+        }
+      ]
+    },
+    {
+      "name": "price",
+      "operator": "gt",
+      "value": "0"
+    }
+  ]
+}
+```
+
+#### Folders
+
+Smart Collection Pro lets you create folders — virtual collections that don't have a Shopify collection attached. They're included in exports and imports just like regular collections.
+
+Folder handles use a `scp.folder:` prefix, for example `scp.folder:winter-sales`. You can use them in either the `collection_handle` or `parent_collection_handle` column, just like a regular collection handle.
+
+A few things to keep in mind:
+
+- Folders don't create a Shopify collectionm, they never need to exist in Shopify before importing.
+- Folders can only be root collections. Setting a `parent_collection_handle` on a folder will result in an error when reviewing the import.
+- If a folder with the same handle already exists, the import will update its title and filters. Otherwise, it will be created.
+
+#### The easiest way to get the right JSON
+
+The filter JSON format is not fully documented. Rather than writing it from scratch, the recommended approach is to **set up the conditions you want using the app's visual editor**, then export your collections and copy the `filters` value from the exported CSV. This guarantees the JSON is valid and correctly formatted.
+
+---
+
+### Converting Smart Collections to Manual Collections
+
+The import tool only works with manual (non-smart) collections. If you're trying to migrate smart collections, you'll need to convert them first — Shopify doesn't currently offer a native way to do this. Many Shopify partners, including BazaarForge, have raised this limitation with Shopify. It's on their radar, but without any communicated timeline, so it's not something to plan around for now.
+
+The only available path is to **delete the smart collection and recreate it as a manual collection**.
+
+:::danger
+
+Deleting a collection permanently removes all references to it — including placements in your theme and any metafield relationships. This cannot be undone. Be sure you understand the full impact before proceeding.
+
+:::
+
+We recommend testing your migration on a **dev store** first. Smart Collection Pro is free on dev stores, so you can safely run through the full export/import workflow before touching your live store.
+
+---
+
+## Frequently Asked Questions
+
+Answers to questions we hear often. If you don't find what you're looking for, feel free to reach out, we're always happy to help.
+
+### Collections & Products
+
+#### Can I add only specific variants to a collection, without pulling in the entire product?
+
+Usually this comes from stores that sell products with very different variants (different colors, materials, flavors, etc...) and want to merchandise them separately, as if each variant were its own standalone product.
+
+Historically, Shopify collections were product-based: when a product was added to a collection, all of its variants were included, with no way to attach a single variant on its own.
+
+Since July 2026, Shopify's new collection system has added support for variant-based collections. We haven't added support for this in the app yet, but it's something we're planning to build.
+
+If this matters to you, let us know, the more merchants who tell us they need it, the sooner we'll make it a priority.
+
+In the meantime, the most straightforward workaround is to split variants out into separate products.
+
+#### I have a lot of collections and want to group them together for better organization, without creating another collection. Is that possible?
+
+Yes, this is exactly what folders are for. A folder groups collections together in your hierarchy without creating a Shopify collection: it doesn't hold products directly, doesn't appear in breadcrumbs, and doesn't count toward your collection limit.
+
+Folders can be placed anywhere in your hierarchy, whether at the root or nested under another collection or folder, so you can use them purely to keep your collection list organized.
+
+[See folder documentation](./folders.mdx)
+
+#### Can I import my existing smart collections into the app?
+
+As of September 2026, we adapted to a new Shopify collection API update that gives us more flexibility.
+The app can now import any existing Shopify collection, including smart collections, not just manually-curated ones.
+
+When you attach an existing collection, the app also offers to reuse that collection's existing conditions as a starting point for the app's own conditions, instead of starting from scratch.
+
+There are two limits to keep in mind:
+
+- Conditions that belong to another app installed on your store can't be imported, only conditions you set up yourself.
+- Conditions that reference other Shopify collections can't be imported either. That's because the app's own "is in / is not in" collection condition only works with collections that are themselves managed by the app, it can't point at an arbitrary Shopify collection.
+
+---
+
+## Folders
+
+### What is a Folder?
+
+A folder is a way to group collections together without creating a Shopify collection. Think of it as a virtual container: it holds sub-collections, but it doesn't contain products on its own and it doesn't exist in Shopify's collection list.
+
+This is useful when you want to organize your hierarchy without creating extra collections that show up in your storefront, in search results, or in Shopify's collections. Folders can be placed anywhere in your hierarchy, whether at the root or nested under another collection or folder.
+
+For example, say you have dozens of collections and want to group them by purpose to keep things manageable.
+You could create folders like:
+
+- 📁 **Seasonal Rotations**
+- 📁 **Landing Pages**
+- 📁 **Promotions**
+
+to organize related collections together.
+A Promotions folder might contain your Black Friday Deals, Cyber Monday Picks, and End of Season Sale collections.
+The folders make your tree easier to navigate in the app,
+but they don't create extra pages on your storefront that you'd then need to manage.
+
+### Scoping Filters Without Changing Your Hierarchy
+
+Folders aren't just for visual organization. Since a folder's filters cascade down to all of its sub-collections but a folder never creates a Shopify collection of its own, you can use one to inject shared filtering logic into a branch of your tree without that scoping showing up anywhere on your storefront: no extra breadcrumb level, no extra URL, nothing for a visitor to see.
+
+For example, if every collection under "Clearance" should exclude out-of-stock products, you could add that condition once on a "Clearance" folder instead of repeating it on each sub-collection, and no visitor-facing page gets created for it.
+
+### How Folders Differ from Regular Collections
+
+|                                     | Folder | Regular managed collection |
+| ----------------------------------- | ------ | -------------------------- |
+| Creates a Shopify collection        | No     | Yes                        |
+| Contains products directly          | No     | Yes                        |
+| Appears in breadcrumbs              | No     | Yes                        |
+| Counts toward your collection limit | No     | Yes                        |
+| Can have sub-collections            | Yes    | Yes                        |
+| Can have filters                    | Yes    | Yes                        |
+| Filters apply to sub-collections    | Yes    | Yes                        |
+
+### Creating a Folder
+
+##### 1. From the collection list, click **Create managed collection**
+
+##### 2. Select **Folder** as the collection type
+
+![Folder type selection](./img/create-folder.png)
+
+##### 3. Give your folder a name and optionally set up filters
+
+Any filters you define on a folder will automatically apply to all of its sub-collections. This is a convenient way to set broad conditions once and have them cascade down.
+
+##### 4. Save your folder
+
+Your folder now appears in the collection list. You can start adding sub-collections to it right away, either by creating new ones or by editing existing collections to set the folder as their parent.
+
+### Pairing Folders with Collection List Navigation
+
+If you use folders to organize your hierarchy, you may also want to enable the **Root only** collection list navigation mode in the app settings.
+Instead of showing the full tree at once, this mode displays only your top-level collections and folders.
+Click a folder to reveal its sub-collections, click again to edit.
+
+This is especially helpful as your catalog grows — rather than scrolling through a long flat list, you can use folders as entry points and drill down from there.
+
+### Limitations
+
+There are a few things to keep in mind when working with folders:
+
+- **Folders don't appear in breadcrumbs.** Since they don't have a Shopify collection, the breadcrumb app block skips them and starts from the first real collection in the path.
+- **Folders don't have a storefront page.** There's no URL to link to, because there's no Shopify collection behind them. If you need a landing page, use a regular managed collection instead.
+
+### Folders and CSV Import/Export
+
+Folders are fully supported in the CSV import and export workflow. When you export your collections, folders are included in the CSV with a special handle prefix: `scp.folder:`. For example, a folder named "Winter Sales" would appear as `scp.folder:winter-sales`.
+
+You can use these prefixed handles in both the `collection_handle` and `parent_collection_handle` columns, just like a regular collection handle. Unlike regular collections, folders don't need to exist in Shopify before importing since they never create a Shopify collection.
+
+For more details on the CSV format, see [CSV Import & Export](./csv-import.mdx).
+
+---
+
+## Smart Collection Pro
+
+This documentation will guide you through setting up and using Smart Collection Pro to enhance your Shopify collections with advanced conditions, auto-syncing, and more.
+
+### What is Smart Collection Pro?
+
+Smart Collection Pro is a shopify app that enhances the way you manage collections on Shopify. Unlike the standard smart collections, which have limited filtering options, Smart Collection Pro offers **advanced conditions** to create more dynamic and flexible collections that automatically update as your product catalog changes.
+
+### Key Features
+- **Advanced filtering** and **Auto-syncing** for more customized collections always up-to-date.
+- **Nested collections** for hierarchical organization.
+- **Breadcrumb navigation** support for easier store navigation.
+
+#### Advanced filtering
+
+  
+    
+      ![Nested collections screenshot](./img/conditions.png)
+    
+   
+      Smart Collection Pro lets you automate collection **with advanced conditions**.
+      You can mix and match blocks of filters to accommodate any situation—whether
+      it’s narrowing down by multiple product attributes, excluding certain items,
+      or combining rules for greater flexibility.
+
+      For example, create a collection for **all products that are on sale and have a rating above 4 stars**,
+      or include products that are either **in stock** or have a **specific tag**, but exclude those from a **particular brand**.
+    
+
+  
+
+#### Nested Hierarchy
+
+  
+      
+        With Smart Collection Pro, you can **nest collections** to create a powerful **hierarchical structure**. This allows child collections to **inherit products** from their parent collection and filter them based on the parent’s rules, rather than the entire product catalog.
+
+        For example, a parent collection like **"Summer Sale"** can include all products on sale, and a child collection like **"Beachwear"** can automatically filter products from the parent collection based on additional criteria—such as product type or tags.
+
+        This hierarchical approach helps keep your collections organized and relevant, all while simplifying product management.
+      
+      
+        ![Nested collections screenshot](./img/nested-collections.png)
+      
+  
+
+#### Breadcrumb
+
+  
+      
+        ![Nested collections screenshot](./img/breadcrumb.png)
+      
+      
+        Smart Collection Pro lets you **add breadcrumbs** to your store, using your collection hierarchy. Once you configure your theme, breadcrumbs will dynamically reflect the parent-child relationships you've set up, providing a smooth navigation experience for your customers.
+
+        For example, **Home > Summer Sale > Beachwear**. Simple to set up, and works seamlessly with your collections.
+
+---
+
+## Metafields Reference & Liquid
+
+Smart Collection Pro stores your collection hierarchy as **metafields** — parent/child relationships, depth levels, root collections, and breadcrumb priorities. These metafields are kept in sync automatically whenever you update your tree in the app.
+
+### When should you use metafields?
+
+For most stores, the **built-in app blocks** (Collection Grid, Breadcrumbs, etc.) are the easiest way to display your hierarchy — no code required. We recommend starting there.
+
+That said, metafields give you full flexibility when you need it. They're a great fit if:
+
+- You have a **development team** that needs to integrate the hierarchy into a custom theme with specific styling or layout requirements.
+- You need hierarchy data in places the app blocks don't cover — like Liquid email templates, third-party page builders, or headless storefronts.
+- You want to build something custom, like a **mega-menu** or a dynamic navigation, powered by your collection tree.
+
+> **Good to know:** These metafields aren't limited to Liquid templates. They're standard Shopify metafields, so they're also available through the **Storefront API** and the **Admin API** — useful for headless builds, custom apps, or any workflow that reads metafield data.
+
+---
+
+### Available Metafields
+
+All metafields live under the namespace `app--162129281025`.
+
+#### Collection metafields
+
+These are set on each **collection** resource.
+
+| Metafield key          | Type                        | Description                                                                                                                                                                                                                                                |
+| ---------------------- | --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `parent_collection`    | `collection_reference`      | The direct parent of this collection. Blank for root collections.                                                                                                                                                                                          |
+| `children_collections` | `list.collection_reference` | Ordered list of direct child collections.                                                                                                                                                                                                                  |
+| `depth`                | `number_integer`            | How deep the collection sits in the tree. Root collections have a depth of **1**, their children **2**, and so on.                                                                                                                                         |
+| `breadcrumb_priority`  | `number_integer`            | The priority value you configured in the app's **Breadcrumbs** settings (Shopify Admin → Smart Collection Pro → Breadcrumbs). Lower numbers mean higher priority. This helps pick the best breadcrumb path when a product belongs to multiple collections. |
+
+#### Shop metafields
+
+These are set on the **shop** resource and give you access to your root-level collections.
+
+| Metafield key        | Type                        | Description                                  |
+| -------------------- | --------------------------- | -------------------------------------------- |
+| `root_collections_1` | `list.collection_reference` | First batch of root collections (up to 250). |
+| `root_collections_2` | `list.collection_reference` | Second batch (items 251–500).                |
+| `root_collections_3` | `list.collection_reference` | Third batch (items 501–750).                 |
+| `root_collections_4` | `list.collection_reference` | Fourth batch (items 751–1000).               |
+
+Root collections are split across multiple metafields because Shopify limits list metafields to 250 items each. Most stores will only need `root_collections_1`.
+
+---
+
+### Accessing Metafields in Liquid
+
+In Liquid, you reference the namespace using bracket notation:
+
+```liquid
+{{ collection.metafields['app--162129281025'].depth }}
+{{ collection.metafields['app--162129281025'].parent_collection.value }}
+{{ collection.metafields['app--162129281025'].children_collections.value }}
+```
+
+For shop-level metafields:
+
+```liquid
+{{ shop.metafields['app--162129281025'].root_collections_1.value }}
+```
+
+---
+
+### Examples
+
+Here are a few common patterns to get you started.
+
+#### Display child collections on a collection page
+
+This is useful when you want to show subcategory cards above your product list — for example, showing **"Beachwear"**, **"Sunglasses"**, and **"Hats"** on your **"Summer Sale"** collection page.
+
+```liquid
+{% assign children = collection.metafields['app--162129281025'].children_collections.value %}
+
+{% if children.size > 0 %}
+  <ul class="subcategory-grid">
+    {% for child in children %}
+      <li>
+        <a href="{{ child.url }}">
+          {% if child.featured_image %}
+            {{ child.featured_image
+              | image_url: width: 600
+              | image_tag: loading: 'lazy' }}
+          {% endif %}
+          <span>{{ child.title }}</span>
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}
+```
+
+#### List all root collections
+
+If you need to display your top-level collections — for example in a custom navigation or on your homepage — you can pull them from the shop metafields:
+
+```liquid
+{% assign roots = shop.metafields['app--162129281025'].root_collections_1.value %}
+
+{%- comment -%}
+  If your store has more than 250 root collections, concatenate the additional batches:
+  {% assign batch_2 = shop.metafields['app--162129281025'].root_collections_2.value %}
+  {% assign roots = roots | concat: batch_2 %}
+{%- endcomment -%}
+
+<ul>
+  {% for col in roots %}
+    <li><a href="{{ col.url }}">{{ col.title }}</a></li>
+  {% endfor %}
+</ul>
+```
+
+#### Build a collection page breadcrumb
+
+You can walk up the tree using `parent_collection` to build a breadcrumb trail like **Home › Summer Sale › Beachwear**:
+
+```liquid
+{% assign crumbs = '' | split: '' %}
+{% assign current = collection %}
+
+{% for i in (1..10) %}
+  {% assign crumbs = crumbs | unshift: current %}
+  {% assign current = current.metafields['app--162129281025'].parent_collection.value %}
+  {% if current == blank %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+<nav aria-label="Breadcrumb">
+  <ol>
+    <li><a href="/">Home</a></li>
+    {% for crumb in crumbs %}
+      {% if crumb == collection %}
+        <li aria-current="page">{{ crumb.title }}</li>
+      {% else %}
+        <li><a href="{{ crumb.url }}">{{ crumb.title }}</a></li>
+      {% endif %}
+    {% endfor %}
+  </ol>
+</nav>
+```
+
+#### Pick the best breadcrumb collection for a product page
+
+Products often belong to multiple collections. For example, a pair of sneakers might be in both **"Women › Shoes › Sneakers"** and **"New Arrivals"**. You probably want the breadcrumb to show the deeper, more specific path.
+
+The `breadcrumb_priority` metafield (which you configure in the app under **Breadcrumbs**) and `depth` help you pick the right one — lower priority wins first, and if two collections share the same priority, the deeper one is preferred:
+
+```liquid
+{% assign best_collection = nil %}
+{% assign best_priority = nil %}
+{% assign best_depth = nil %}
+
+{% for col in product.collections %}
+  {% assign depth = col.metafields['app--162129281025'].depth %}
+  {% assign priority = col.metafields['app--162129281025'].breadcrumb_priority %}
+
+  {% if depth >= 1 %}
+    {% assign is_better = false %}
+
+    {% comment %} Prefer lower priority value (= higher importance) {% endcomment %}
+    {% if priority != blank %}
+      {% if best_priority == blank or priority < best_priority %}
+        {% assign is_better = true %}
+      {% endif %}
+    {% endif %}
+
+    {% comment %} Same priority? Prefer deeper collection {% endcomment %}
+    {% if priority == best_priority and depth > best_depth %}
+      {% assign is_better = true %}
+    {% endif %}
+
+    {% if best_depth == blank or is_better %}
+      {% assign best_priority = priority %}
+      {% assign best_depth = depth %}
+      {% assign best_collection = col %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+{% comment %}
+  Now build the breadcrumb by walking up from best_collection
+  using parent_collection, same technique as the collection breadcrumb above.
+{% endcomment %}
+```
+
+#### Adapt layout based on collection depth
+
+You can use `depth` for conditional logic — for example, showing a different layout depending on where a collection sits in the tree:
+
+```liquid
+{% assign depth = collection.metafields['app--162129281025'].depth %}
+
+{% if depth == 1 %}
+  {% comment %} Root collection — show a large hero banner {% endcomment %}
+{% elsif depth >= 3 %}
+  {% comment %} Deep collection — show a compact header {% endcomment %}
+{% endif %}
+```
+
+---
+
+## How The App Manages Your Products
+
+Starting September 8th, 2026, Smart Collection Pro is adopting a new way Shopify lets collections be built up, to make Managed Collections more reliable. Here's what's changing and what it means for you.
+
+### A More Reliable Way to Manage Your Collections
+
+Previously, Smart Collection Pro kept your Managed Collections up to date by adding and removing products directly on the collection: the same place where you (or a staff member) could also add or remove products by hand. This could lead to confusion, since manual changes would look fine at first, but would get reverted the next time the app synced the collection based on your conditions.
+
+With this update, the app now creates a dedicated **app source** on the collection and keeps it in sync, separate from anything added elsewhere. This gives a clear separation between what Smart Collection Pro manages and everything else, so there's no more back-and-forth between manual edits and the app's synchronization.
+
+For most stores, there's nothing to configure. Your existing conditions keep working exactly as before, and this change happens behind the scenes.
+
+### What it looks like
+
+When you create a managed collection in the app, it will appear as an app source on the right.
+
+In the example below we created the managed collection "Sales - Arco," which has an associated app source created by the app.
+This is what you will see when you visit the native Shopify collection:
+
+![App Source Screenshot](./img/sources/source-by-app.png)
+
+### What You Shouldn't Do
+
+:::warning
+Don't manually add or remove sources on a collection managed by Smart Collection Pro (in the Shopify collection editor's Sources section). Doing so can cause the collection to drift away from your configured conditions.
+:::
+
+If you need to change which products are included, do it through your conditions in the app rather than editing the collection directly in Shopify.
+
+### Detecting a Diverged Collection
+
+If a Managed Collection is changed outside of the app (for example, if a source was added or removed on it directly in Shopify), Smart Collection Pro will detect it and show a warning that the collection has diverged, meaning its products may no longer be up to date with your conditions.
+
+We're working on a dedicated repair tool to fix this from within the app. Until it's available, you can resolve it yourself by removing the extra source and re-adding Smart Collection Pro's app source to the collection. If you'd rather not do this yourself, just reach out to us and we'll fix it for you.
+
+### Creating and Attaching Collections
+
+- Creating a new collection from the app sets everything up correctly from the start. There's nothing extra to do.
+- Attaching to an existing Shopify collection replaces whatever was already populating it with Smart Collection Pro's management. As with today, you'll be warned about this on the create screen before confirming, since it can affect which products are currently in the collection.
+
+### Removing a Collection From the App
+
+If you delete a Managed Collection from the app but choose to keep the collection in Shopify,
+it's handed back to you as a regular, freely-editable collection.
+You'll be able to add and remove products from it again, just like before it was managed by the app.
+
+The app will transfer products from the app source to a regular source.
+The process can take a couple of minutes, depending on how many products are in the collection.
+
+![App Source transfering to regular source screenshot](./img/sources/source-transfer-in-progress.png)
+
+Once the process is complete, the app source will be removed from the collection,
+leaving you with the regular source fully populated:
+
+![Regular source screenshot without the app source](./img/sources/source-transfer-completed.png)
+
+### Existing Collections
+
+:::note
+Existing Managed Collections won't change right away. We'll migrate them to this new system gradually over time starting September 8th, 2026, and no action is needed on your end.
+:::
