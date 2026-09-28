@@ -210,7 +210,7 @@ Overrides crumbs styling for the **current page** label. This is the last item i
 
 Stay up to date with the latest improvements to Smart Collection Pro.
 
-#### September 27, 2026
+#### September 28, 2026
 
 - **Faster collection syncs**: Syncing collections is now up to 2x faster. Gains scale with store size: small stores may not notice a difference, mid-size to large stores typically see 1.2x to 2x.
 
