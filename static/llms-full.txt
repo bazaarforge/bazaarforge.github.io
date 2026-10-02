@@ -210,6 +210,10 @@ Overrides crumbs styling for the **current page** label. This is the last item i
 
 Stay up to date with the latest improvements to Smart Collection Pro.
 
+#### October 2, 2026
+
+- **Hourly precision for rolling date filters**: Rolling date filters ("is within the last/next X days," "is more than X days ago") can now be set in hours instead of just days, for merchants who need exact-hour precision.
+
 #### September 28, 2026
 
 - **Faster collection syncs**: Syncing collections is now up to 2x faster. Gains scale with store size: small stores may not notice a difference, mid-size to large stores typically see 1.2x to 2x.
