@@ -6,6 +6,7 @@ This file contains links to documentation sections following the llmstxt.org sta
 
 ## Table of Contents
 
+- [Activity Logs](http://bazaarforge.com/docs/smart-collection-pro/activity): Your collections are a central piece of your storefront: they shape how customers browse, what gets featured, and how your catalog is organized. Wh...
 - [Breadcrumb Navigation](http://bazaarforge.com/docs/smart-collection-pro/breadcrumb): The **Breadcrumb** app blocks add breadcrumb navigation to your store, built from the collection hierarchy you've configured in the app.
 - [Changelogs](http://bazaarforge.com/docs/smart-collection-pro/changelogs): Stay up to date with the latest improvements to Smart Collection Pro.
 - [Collection Grid](http://bazaarforge.com/docs/smart-collection-pro/collection-grid): The **Collection Grid** app block lets you showcase collections in a visually appealing grid layout.

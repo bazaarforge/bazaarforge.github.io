@@ -4,6 +4,52 @@
 
 This file contains all documentation content in a single document following the llmstxt.org standard.
 
+## Activity Logs
+
+Your collections are a central piece of your storefront: they shape how customers browse, what gets featured, and how your catalog is organized. When you let Smart Collection Pro manage a collection for you, you're trusting it to keep that piece right, which is why we think you deserve clear visibility into what the app is actually doing with it.
+
+That's what Activity Logs are for: a record of the changes the app makes, and the products it moves, so you're never left guessing why a collection looks different than you expected.
+
+### Where to Find It
+
+Activity shows up in two places:
+
+- **Activity**, an entry in the left menu with the full history.
+- **Activity Summary**, a card on the home page showing the most recent entries.
+
+### Two Logs
+
+The Activity page shows two tables. In both, each row shows the date and time, the collection involved (linked, unless it's since been deleted), and what happened.
+
+#### Collection Changes
+
+Every create, update, or delete made to a Managed Collection (including via the API). Each entry shows which fields changed, such as the title, parent collection, roll-up setting, image, description, linked Shopify collection, or [conditions](./conditions.mdx).
+
+![Collection changes activity table](./img/activity/collection-updates-actvity-table.png)
+
+#### Product Movements
+
+Products the app added to or removed from a collection, grouped by collection and by batch, so a single sync that moves fifty products shows up as one entry instead of fifty.
+
+![Product movements activity table](./img/activity/collection-product-movements-activity-table.png)
+
+:::note
+This tracks changes to the **app source**, not the collection directly. [See how Smart Collection Pro manages your collections](./sources.mdx).
+:::
+
+### What It Doesn't Cover
+
+- **Only what happens inside the app.** Changes made directly in Shopify, outside the app, aren't recorded.
+- **History starts October 7, 2026.** Nothing before that date is available, and we currently keep 3 months of history. This may evolve as the feature matures.
+
+### Early Access
+
+Activity Logs are a new, early access feature. We built it to give you more visibility into what the app does behind the scenes, and we're still shaping what it becomes. Over time, we plan to let you drill down into a single collection's or product's history, and see exactly what changed.
+
+If there's something that would make it more useful to you, we'd love to hear it: email us at [hello@bazaarforge.com](mailto:hello@bazaarforge.com).
+
+---
+
 ## Breadcrumb Navigation
 
 ### Helping Customers Find Their Way
@@ -209,6 +255,10 @@ Overrides crumbs styling for the **current page** label. This is the last item i
 ## Changelogs
 
 Stay up to date with the latest improvements to Smart Collection Pro.
+
+#### October 7, 2026
+
+- **New early access feature: Activity Logs**: A new **Activity** page tracks the changes the app makes to your Managed Collections and the products it moves in or out of them, plus a summary card on the home page. History starts today and currently covers the last 3 months. [See documentation](./activity.mdx)
 
 #### October 2, 2026
 
@@ -820,6 +870,53 @@ This setup ensures only **t-shirts or sweaters priced over €50** are included.
 ### Flexible and Powerful Filtering
 With these options, you can create highly customized collections that fit any situation. Whether you need strict filtering or a more flexible approach, **Smart Collection Pro** gives you full control over your product organization.
 
+### Available Filters
+
+Here's every field you can build a condition on, grouped by what it describes.
+
+#### Product Details
+
+- **Title**: Match products by name, using contains, starts with, equals, and more.
+- **Product type**: The free-text "Type" field you set on each product.
+- **Category**: Shopify's structured category tree (e.g. Apparel > Shirts). You can choose to include all of a category's sub-categories automatically, so picking "Apparel" also catches "T-Shirts," "Jackets," and everything underneath it.
+- **Vendor / Brand**: The manufacturer or brand recorded on the product.
+- **Tags**: Any of the tags attached to a product.
+- **Status**: Active, Draft, Archived, or Unlisted.
+- **Media count**: How many images or videos a product has. Useful for keeping products without photos out of a collection until they're ready.
+
+#### Pricing
+
+- **Price**: The product's selling price.
+- **Compare-at price**: The "was" price shown with a strikethrough.
+- **Discount**: A filter unique to Smart Collection Pro. It automatically detects products currently on sale by comparing price to compare-at price, with no manual tagging required. Use it to catch anything discounted at all, or tune it to a precise threshold like "discounted by at least 20%", and it keeps working as prices change.
+
+#### Inventory & Availability
+
+- **Total inventory stock**: Combined stock across all of a product's variants.
+- **Variant inventory stock**: Stock at the individual variant level (a specific size or color, for example).
+- **Sellable online quantity**: Another filter unique to Smart Collection Pro. Rather than raw stock counts, it reflects what's actually available for a customer to buy online right now, accounting for reservations and fulfillment status, so a collection never shows something a customer can't actually check out with.
+- **Inventory tracking**: Whether Shopify is tracking stock for the item at all. Useful for separating digital products or services, like gift cards or warranties, which typically don't track inventory, from physical ones that do.
+- **Variant title**: Match a specific variant by its name, like "Red / Large" (you can select multiple values at once).
+- **Variant SKU**: Match products by SKU, using contains, starts with, equals, and more.
+
+Both variant title and SKU can be narrowed with a "require sellable online" option, unique to Smart Collection Pro: only variants a customer can actually check out with right now will match, not just any variant with a matching name or SKU.
+
+#### Dates
+
+- **Date created** and **Date published**: Instead of fixed dates, use flexible rolling windows that stay accurate on their own: "within the last X," "within the next X," "at least X ago" (great for surfacing stale listings), "in the past," "in the future," or a fixed before/after date. Rolling windows can be set in hours as well as days, a level of precision unique to Smart Collection Pro, so you can build rules like "published in the last 48 hours," not just whole-day windows. Date and date & time metafields support these same rolling windows too.
+
+#### Other Collections
+
+- **Collection membership**: Include or exclude products that belong to another Managed Collection.
+
+#### Custom Fields (Metafields)
+
+Any custom field you've set up on products or variants can be used as a filter too: single-line text, lists of text, whole numbers, decimals, true/false, dates, date & time, and references to metaobjects (like a "Material" or "Size Guide" entry), whether single or multiple.
+
+#### Comparison Operators
+
+Which comparisons are available depends on the field, but you'll generally find options like equals / doesn't equal, contains / doesn't contain, starts with / ends with, greater than / less than, and is empty / is not empty. Fields that can hold multiple values, like tags, can be set to match any of or all of your selected values.
+
 ---
 
 ## Creating a Managed Collection
@@ -1108,6 +1205,18 @@ There are two limits to keep in mind:
 
 - Conditions that belong to another app installed on your store can't be imported, only conditions you set up yourself.
 - Conditions that reference other Shopify collections can't be imported either. That's because the app's own "is in / is not in" collection condition only works with collections that are themselves managed by the app, it can't point at an arbitrary Shopify collection.
+
+### Activity
+
+#### Does Activity track changes I make directly in Shopify?
+
+No. Activity only records what happens inside the app, whether that's you, the API, or the app itself making a change. If you edit a collection directly in the Shopify admin, outside the app, it won't show up in the log.
+
+[See Activity documentation](./activity.mdx)
+
+#### How far back does Activity history go?
+
+Activity started recording on October 7, 2026, so nothing before that date is available. We currently keep 3 months of history. This may evolve as the feature matures.
 
 ---
 
