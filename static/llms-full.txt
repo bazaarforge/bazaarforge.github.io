@@ -258,7 +258,7 @@ Stay up to date with the latest improvements to Smart Collection Pro.
 
 #### October 7, 2026
 
-- **New early access feature: Activity Logs**: A new **Activity** page tracks the changes the app makes to your Managed Collections and the products it moves in or out of them, plus a summary card on the home page. History starts today and currently covers the last 3 months. [See documentation](./activity.mdx)
+- **New early access feature: Activity Logs**: A new **Activity** page tracks the changes the app makes to your Managed Collections and the products it moves in or out of them, plus a summary card on the home page. History starts today and currently covers the last 3 months. [See activity documentation](./activity.mdx).
 - **Collection Description**: You can now edit the collection's description directly from the app.
 
 #### October 2, 2026
