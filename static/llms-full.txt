@@ -259,6 +259,7 @@ Stay up to date with the latest improvements to Smart Collection Pro.
 #### October 7, 2026
 
 - **New early access feature: Activity Logs**: A new **Activity** page tracks the changes the app makes to your Managed Collections and the products it moves in or out of them, plus a summary card on the home page. History starts today and currently covers the last 3 months. [See documentation](./activity.mdx)
+- **Collection Description**: You can now edit the collection's description directly from the app.
 
 #### October 2, 2026
 
@@ -284,7 +285,9 @@ Stay up to date with the latest improvements to Smart Collection Pro.
 
 #### September 22, 2026
 
-- **Reorganized collection creation and edition page**: We rearranged the page to make it better organized and easier to navigate. You can now see and edit the collection's **image** directly from the page, and on the creation page you can also edit the **publication channels**. This is the first of a series of changes we'll be rolling out to improve this page.
+- **Reorganized collection creation and edition page**: We rearranged the page to make it better organized and easier to navigate. This is the first of a series of changes we'll be rolling out to improve this page.
+  - **Collection Images**: You can now see and edit the collection's **image** directly from the app
+  - **Publication Channels**: You can now customize publication channel when you create a collection from the app.
 
 #### September 16, 2026
 
