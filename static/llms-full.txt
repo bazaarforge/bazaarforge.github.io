@@ -256,6 +256,13 @@ Overrides crumbs styling for the **current page** label. This is the last item i
 
 Stay up to date with the latest improvements to Smart Collection Pro.
 
+#### October 8, 2026
+
+- **Easier selection of multiple values**:
+  When you add a condition that accepts several values, such as tags or product types,
+  you can type in the search box to narrow down the list.
+  Your search now stays in place after you pick an option, so you can select several matching entries without retyping it each time.
+
 #### October 7, 2026
 
 - **New early access feature: Activity Logs**: A new **Activity** page tracks the changes the app makes to your Managed Collections and the products it moves in or out of them, plus a summary card on the home page. History starts today and currently covers the last 3 months. [See activity documentation](./activity.mdx).
