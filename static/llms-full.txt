@@ -1,8 +1,9 @@
 # BazaarForge
 
-> Shopify Innovations Tailored for Real-World Challenges
+> BazaarForge is a small Shopify Partner studio behind Smart Collection Pro (SCP).
+> SCP is a Shopify app that builds and maintains product collections automatically from custom rules, at scale up to catalogs of a million products.
 
-This file contains all documentation content in a single document following the llmstxt.org standard.
+This file contains all our documentation and site page content in a single document, following the llmstxt.org standard.
 
 ## Activity Logs
 
@@ -1634,3 +1635,56 @@ leaving you with the regular source fully populated:
 :::note
 Existing Managed Collections won't change right away. We'll migrate them to this new system gradually over time starting September 8th, 2026, and no action is needed on your end.
 :::
+
+---
+
+## Where AI Fits In
+
+BazaarForge's AI manifesto: we use AI, but we don't ship slop. Engineering stays at the center of everything we build.
+
+### We use AI. We don't ship slop.
+
+We'd be wrong not to use AI. Anyone who's used it for long enough has seen how good it can be, and how bad the results get when nobody's watching. We've seen both sides, which is exactly why we're careful.
+
+### Engineering stays at the center
+
+AI isn't a shortcut for us, and it isn't a band-aid over weak engineering. We use it to make our existing engineering practices faster, not to replace them. We still design carefully, and we still build products that are properly tested and engineered for scale. AI just helps us get there faster.
+
+Every line of code AI writes for us goes through a human first — us. We review all of it, line by line. If something feels off, we throw it out and do it properly ourselves. We still know how to build things by hand when AI falls short, and we're not shy about it.
+
+**No AI slop, ever.**
+
+### What's at stake
+
+Your store isn't a side project. It's revenue you depend on, and a small mistake in a rule, a sync, or a storefront filter can cost real money, fast. That's why we won't let a machine with no sense of consequence run your store — we stay in charge, and we act like it.
+
+That same discipline is why Smart Collection Pro, our collection automation app, holds up on catalogs of a million products. That's not a trivial bar: most collection apps aren't built, or tested, to survive it.
+
+AI makes us faster. It doesn't make us careless.
+
+---
+
+## Contact
+
+How to reach BazaarForge, the small Shopify Partner studio behind Smart Collection Pro.
+
+### Email
+
+[hello@bazaarforge.com](mailto:hello@bazaarforge.com) — this inbox reaches us directly, not a ticket queue. Write any time, day or night; there's no office door to knock on.
+
+### Office hours and response time
+
+We answer within the hour during office hours, EU time zone (Prague, CET). We answer personally — no AI, no outsourced support — so once in a while it takes a little longer.
+
+### Languages
+
+- **English** — direct reply
+- **Français** — réponse directe
+- **Any other language** — translated for you
+
+### What to expect
+
+- **Write any time** — send your email whenever it's convenient; we don't keep office hours in the sense of a closed door.
+- **Feedback shapes the roadmap** — most of what we've built started as something a merchant wrote to us first.
+
+We read every email, whether it's a technical snag, a sharp idea, or plain feedback.

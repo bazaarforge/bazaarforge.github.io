@@ -1,10 +1,11 @@
 # BazaarForge
 
-> Shopify Innovations Tailored for Real-World Challenges
+> BazaarForge is a small Shopify Partner studio behind Smart Collection Pro (SCP).
+> SCP is a Shopify app that builds and maintains product collections automatically from custom rules, at scale up to catalogs of a million products.
 
-This file contains links to documentation sections following the llmstxt.org standard.
+This file lists links to our documentation and site pages, following the llmstxt.org standard.
 
-## Table of Contents
+## Documentation
 
 - [Activity Logs](http://bazaarforge.com/docs/smart-collection-pro/activity): Your collections are a central piece of your storefront: they shape how customers browse, what gets featured, and how your catalog is organized. Wh...
 - [Breadcrumb Navigation](http://bazaarforge.com/docs/smart-collection-pro/breadcrumb): The **Breadcrumb** app blocks add breadcrumb navigation to your store, built from the collection hierarchy you've configured in the app.
@@ -18,3 +19,8 @@ This file contains links to documentation sections following the llmstxt.org sta
 - [Smart Collection Pro](http://bazaarforge.com/docs/smart-collection-pro/intro): This documentation will guide you through setting up and using Smart Collection Pro to enhance your Shopify collections with advanced conditions, a...
 - [Metafields Reference & Liquid](http://bazaarforge.com/docs/smart-collection-pro/metafields): Smart Collection Pro stores your collection hierarchy as **metafields** — parent/child relationships, depth levels, root collections, and breadcrum...
 - [How The App Manages Your Products](http://bazaarforge.com/docs/smart-collection-pro/sources): Starting September 8th, 2026, Smart Collection Pro is adopting a new way Shopify lets collections be built up, to make Managed Collections more rel...
+
+## Pages
+
+- [Where AI Fits In](http://bazaarforge.com/ai): BazaarForge's AI manifesto — we use AI to build faster, but engineering stays at the center and every line gets reviewed.
+- [Contact](http://bazaarforge.com/contact): How to reach BazaarForge — email, office hours (Prague/CET), response time, and the languages we answer in.
