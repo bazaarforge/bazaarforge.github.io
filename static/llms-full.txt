@@ -1606,17 +1606,11 @@ You can use `depth` for conditional logic — for example, showing a different l
 
 ---
 
-## How The App Manages Your Products
+## How Managed Collections Stay in Sync
 
-Starting September 8th, 2026, Smart Collection Pro is adopting a new way Shopify lets collections be built up, to make Managed Collections more reliable. Here's what's changing and what it means for you.
+Smart Collection Pro keeps each Managed Collection up to date by creating a dedicated **app source** on the underlying Shopify collection, kept separate from anything added or removed by hand. This gives a clean separation between what the app manages and everything else, so there's no back-and-forth between manual edits and the app's synchronization: a manual change on a Managed Collection would otherwise look fine at first, then get reverted the next time the app syncs the collection based on your conditions.
 
-### A More Reliable Way to Manage Your Collections
-
-Previously, Smart Collection Pro kept your Managed Collections up to date by adding and removing products directly on the collection: the same place where you (or a staff member) could also add or remove products by hand. This could lead to confusion, since manual changes would look fine at first, but would get reverted the next time the app synced the collection based on your conditions.
-
-With this update, the app now creates a dedicated **app source** on the collection and keeps it in sync, separate from anything added elsewhere. This gives a clear separation between what Smart Collection Pro manages and everything else, so there's no more back-and-forth between manual edits and the app's synchronization.
-
-For most stores, there's nothing to configure. Your existing conditions keep working exactly as before, and this change happens behind the scenes.
+There's nothing to configure for this to work. It happens automatically whenever you create or manage a collection through the app.
 
 ### What it looks like
 
@@ -1637,14 +1631,14 @@ If you need to change which products are included, do it through your conditions
 
 ### Detecting a Diverged Collection
 
-If a Managed Collection is changed outside of the app (for example, if a source was added or removed on it directly in Shopify), Smart Collection Pro will detect it and show a warning that the collection has diverged, meaning its products may no longer be up to date with your conditions.
+If a Managed Collection is changed outside of the app (for example, if a source was added or removed on it directly in Shopify), Smart Collection Pro will detect it and show a warning on the collection's page in the app, meaning its products may no longer be up to date with your conditions.
 
-We're working on a dedicated repair tool to fix this from within the app. Until it's available, you can resolve it yourself by removing the extra source and re-adding Smart Collection Pro's app source to the collection. If you'd rather not do this yourself, just reach out to us and we'll fix it for you.
+You can resolve it yourself by removing the extra source and re-adding Smart Collection Pro's app source to the collection. If you'd rather not do this yourself, just reach out to us and we'll fix it for you.
 
 ### Creating and Attaching Collections
 
 - Creating a new collection from the app sets everything up correctly from the start. There's nothing extra to do.
-- Attaching to an existing Shopify collection replaces whatever was already populating it with Smart Collection Pro's management. As with today, you'll be warned about this on the create screen before confirming, since it can affect which products are currently in the collection.
+- Attaching to an existing Shopify collection replaces whatever was already populating it with Smart Collection Pro's management. You'll be warned about this on the create screen before confirming, since it can affect which products are currently in the collection.
 
 ### Removing a Collection From the App
 
@@ -1665,7 +1659,7 @@ leaving you with the regular source fully populated:
 ### Existing Collections
 
 :::note
-Existing Managed Collections won't change right away. We'll migrate them to this new system gradually over time starting September 8th, 2026, and no action is needed on your end.
+This only affects Managed Collections created before September 8th, 2026. We're migrating those gradually to this system; yours may not have an app source yet. If it hasn't been migrated, it keeps working as it did before, and no action is needed on your end until its turn comes.
 :::
 
 ---
