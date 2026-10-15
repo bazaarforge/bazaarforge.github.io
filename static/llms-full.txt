@@ -260,7 +260,8 @@ Stay up to date with the latest improvements to Smart Collection Pro.
 #### October 15, 2026
 
 - **Activity log on collection page**: You can now see recent activity for a managed collection directly on the managed collection page.
-  - **See products of a movement**: On the managed collection page, you can now see which products were affected by a movement.
+  - **See products of a movement**: On the managed collection page, you can now see which products were affected by a movement:
+    Click on the number of products and it will show the list of products that were added or removed by this movement.
 - **Roll Up icon in the collection list**: When a managed collection uses Roll Up mode (includes products from child collections),
   the collection list now displays a special icon, making it easy to see at a glance which collections are using Roll Up.
 - **Collection source divergence warning**: When a managed collection has a possible divergence (the attached collection's sources were changed manually),
