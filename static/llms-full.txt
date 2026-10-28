@@ -1706,21 +1706,58 @@ How to reach BazaarForge, the small Shopify Partner studio behind Smart Collecti
 
 ### Email
 
-[hello@bazaarforge.com](mailto:hello@bazaarforge.com) — this inbox reaches us directly, not a ticket queue. Write any time, day or night; there's no office door to knock on.
+[hello@bazaarforge.com](mailto:hello@bazaarforge.com): this inbox reaches us directly, not a ticket queue. Write any time, day or night; there's no office door to knock on.
 
 ### Office hours and response time
 
-We answer within the hour during office hours, EU time zone (Prague, CET). We answer personally — no AI, no outsourced support — so once in a while it takes a little longer.
+We answer within the hour during office hours, EU time zone (Prague, CET). We answer personally, with no AI and no outsourced support, so once in a while it takes a little longer.
 
 ### Languages
 
-- **English** — direct reply
-- **Français** — réponse directe
-- **Any other language** — translated for you
+- **English**: direct reply
+- **Français**: réponse directe
+- **Any other language**: translated for you
 
 ### What to expect
 
-- **Write any time** — send your email whenever it's convenient; we don't keep office hours in the sense of a closed door.
-- **Feedback shapes the roadmap** — most of what we've built started as something a merchant wrote to us first.
+- **Write any time**: send your email whenever it's convenient; we don't keep office hours in the sense of a closed door.
+- **Feedback shapes the roadmap**: most of what we've built started as something a merchant wrote to us first.
 
 We read every email, whether it's a technical snag, a sharp idea, or plain feedback.
+
+---
+
+## Custom Apps
+
+Custom Shopify apps for automation and data at real volume, built around your workflow, not a template.
+
+### Built around your workflow
+
+Shopify Flow and off-the-shelf apps cover the common cases. When your process doesn't fit either, we design and build the custom app that does, scoped to what you actually need. Most of what lands on our desk is about moving and reacting to data at real volume: automation that runs live, not on a nightly batch.
+
+### How a build takes shape
+
+1. **Discovery**: we start with your bottleneck, not a feature list. If Shopify Flow or a smaller fix already solves it, we'll say so before we quote anything else.
+2. **Build**: scoped tightly to the problem and engineered to the same standard as Smart Collection Pro, properly designed, no shortcuts. The interface your team uses gets the same care as the logic underneath.
+3. **Ship and maintain**: documented and handed over properly. We host it and monitor it ourselves, catching problems before you do, so it keeps running without you babysitting it.
+
+**How it's billed**: one monthly fee once you're live, covering the build, hosting, monitoring, and support, so there's no large invoice upfront and nothing separate to chase afterward. Some engagements start with a deposit, mainly to make sure both sides are committed before the work begins.
+
+### You're probably in the right place if
+
+- **Flow can't hold the logic**: nested conditions, cross-object checks, scoring, the kind of rule a trigger-and-action builder was never meant to run.
+- **Your data moves faster than your tools**: catalog, inventory, or order changes that need a reaction in real time, not on the next scheduled sync.
+- **You're past demo-data volume**: tens of thousands of SKUs, orders, or sync events, the scale most integrations weren't built, or tested, to hold.
+- **A script won't cut it**: you need something engineered, tested, and maintained like production software, not a one-off left running unattended.
+- **Staff need a UI, not a dev ticket**: the people updating it every day shouldn't need a developer on call for routine changes.
+- **You need to know what changed, and why**: automation that quietly does the wrong thing is worse than none at all. We build in monitoring and a history log from day one.
+
+### The engineering behind it
+
+The discipline behind every custom build shows up in Smart Collection Pro, our collection automation app: live on the Shopify App Store, tested to hold up on catalogs of a million products, with real reviews behind it. It also ships with the same monitoring we build into custom work: an Activity Log that records every change and product movement, so nothing happens quietly. That's the bar every custom build is held to.
+
+### How we start
+
+Describe the bottleneck in plain terms. The technical shape of the solution is our job, not yours. We're happy to sign an NDA first if that's what it takes to talk freely.
+
+Email us at [hello@bazaarforge.com](mailto:hello@bazaarforge.com).

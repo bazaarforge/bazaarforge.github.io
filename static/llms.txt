@@ -23,4 +23,5 @@ This file lists links to our documentation and site pages, following the llmstxt
 ## Pages
 
 - [Where AI Fits In](https://bazaarforge.com/ai): BazaarForge's AI manifesto — we use AI to build faster, but engineering stays at the center and every line gets reviewed.
-- [Contact](https://bazaarforge.com/contact): How to reach BazaarForge — email, office hours (Prague/CET), response time, and the languages we answer in.
+- [Contact](https://bazaarforge.com/contact): How to reach BazaarForge: email, office hours (Prague/CET), response time, and the languages we answer in.
+- [Custom Apps](https://bazaarforge.com/custom-apps): Custom Shopify apps for automation and data at real volume: logic Shopify Flow can't run, reacting the moment your catalog or orders change.
