@@ -1674,6 +1674,45 @@ This only affects Managed Collections created before September 8th, 2026. We're 
 
 ---
 
+## Affiliate Program
+
+Recommend Smart Collection Pro to merchants and earn a lifetime revenue share, up to 40%, starting at 25%.
+
+### How it works
+
+If you recommend the app to merchants and they subscribe, we pay you a percentage of the revenue we collect from their account. That percentage is guaranteed for as long as they stay subscribed, not a one-time bounty.
+
+The rate itself isn't fixed: it starts at 25% and climbs by 2.5% for every $100 of referred MRR (monthly recurring revenue) you've brought in, up to a cap of 40% once you reach $600 of average referred MRR. It's refreshed monthly, based on your average referred MRR.
+
+| Avg. referred MRR | Rate |
+| --- | --- |
+| $0 | 25.0% |
+| $100 | 27.5% |
+| $200 | 30.0% |
+| $300 | 32.5% |
+| $400 | 35.0% |
+| $500 | 37.5% |
+| $600+ | 40.0% |
+
+### How it runs
+
+1. **Recommend**: point a merchant who needs it to Smart Collection Pro.
+2. **They subscribe**: once they install and pay, their MRR counts toward your average and sets your rate for the month.
+3. **Get paid, every month**: you're paid your current rate on their revenue monthly, for as long as they remain subscribed. No expiry, no clawback.
+
+### The fine print, in plain language
+
+- **Lifetime, tied to the subscription**: your share keeps paying out for as long as the merchant you referred stays subscribed, however many years that is.
+- **Refreshed monthly**: your rate is recalculated every month from your average referred MRR.
+- **Capped at 40%, never less than 25%**: every referral starts earning you 25% from day one.
+- **No limit on referrals**: every merchant you bring in contributes to your average referred MRR and your payout.
+
+### Get started
+
+Email us at [hello@bazaarforge.com](mailto:hello@bazaarforge.com) and tell us a little about where you'd be recommending the app.
+
+---
+
 ## Where AI Fits In
 
 BazaarForge's AI manifesto: we use AI, but we don't ship slop. Engineering stays at the center of everything we build.
