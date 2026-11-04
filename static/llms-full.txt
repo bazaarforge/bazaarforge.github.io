@@ -1233,31 +1233,17 @@ There are two limits to keep in mind:
 
 ### Automation & Shopify Flow
 
-#### Can I react to a collection update, like running an automation whenever a collection changes?
-
-Yes, for any collection Smart Collection Pro manages. The app can notify Shopify Flow whenever it adds or removes a product from one of your Managed Collections, so you can build an automation around it, whether that's a Slack notification, an email, a tag update, or anything else Flow can do.
-
-[See our Shopify Flow integration documentation](./flow.mdx)
-
 #### How do I trigger a Shopify Flow workflow when a product is added to or removed from a collection?
 
-Shopify Flow doesn't have a built-in trigger for this: out of the box, Flow can't tell you when a product enters or leaves a collection. Smart Collection Pro adds that missing trigger for any collection it manages, firing a Flow workflow every time it adds or removes a product so you can automate whatever should happen next.
+Shopify Flow doesn't have a built-in trigger for this out of the box. Smart Collection Pro adds it for any collection it manages: the app can notify Shopify Flow whenever it adds or removes a product from one of your Managed Collections, so you can build an automation around it, whether that's a Slack notification, an email, a tag update, or anything else Flow can do.
 
 [See our Shopify Flow integration documentation](./flow.mdx)
-
-#### Does this work with any Shopify collection, or only collections managed by Smart Collection Pro?
-
-Only **Managed Collections**, collections set up and kept in sync through Smart Collection Pro. That's what lets the app know exactly when and why a product moved. A regular Shopify collection you manage by hand won't have this trigger available.
 
 #### Will the Flow trigger fire if I add or remove a product manually in the Shopify admin?
 
 No. It only fires for movements Smart Collection Pro itself performs through its own sync. A manual change made directly on the collection in Shopify, outside the app, won't trigger a workflow.
 
 [See our Shopify Flow integration documentation](./flow.mdx)
-
-#### Do I need to know how Shopify Flow works to use this?
-
-Not really. You can turn on the trigger from **Settings → Flow** and click **Ask Sidekick** to describe what you want in plain language; Sidekick builds the workflow with you.
 
 ### Activity
 
