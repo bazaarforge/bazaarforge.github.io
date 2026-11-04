@@ -257,6 +257,10 @@ Overrides crumbs styling for the **current page** label. This is the last item i
 
 Stay up to date with the latest improvements to Smart Collection Pro.
 
+#### November 4, 2026
+
+- **New feature: Shopify Flow trigger**: You can now trigger a Shopify Flow workflow whenever the app adds or removes a product from a Managed Collection. Off by default, enable it from **Settings → Flow**. [See Shopify Flow documentation](./flow.mdx).
+
 #### October 15, 2026
 
 - **Activity log on collection page**: You can now see recent activity for a managed collection directly on the managed collection page.
@@ -1238,6 +1242,60 @@ No. Activity only records what happens inside the app, whether that's you, the A
 #### How far back does Activity history go?
 
 Activity started recording on October 7, 2026, so nothing before that date is available. We currently keep 3 months of history. This may evolve as the feature matures.
+
+---
+
+## Automate with Shopify Flow
+
+Smart Collection Pro can notify [Shopify Flow](https://help.shopify.com/en/manual/shopify-flow) whenever it adds or removes a product from one of your Managed Collections, so you can build your own automations on top of it: notify your team, update a related system, tag the product, or anything else Flow can do.
+
+  
+    
+      ![Example Shopify Flow workflow using the Smart Collection Pro trigger](./img/flow/flow-example.png)
+    
+  
+
+### What It Fires On
+
+The trigger fires every time Smart Collection Pro adds or removes a product from a Managed Collection, whether that's from a condition match, a hierarchy change, or any other sync the app performs on its own.
+
+:::note
+Only movements the app itself makes are tracked. If you manually add or remove a product from the collection directly in the Shopify admin, it won't trigger this automation, only changes driven by the app do. [See how Smart Collection Pro manages your collections](./sources.mdx) for more on the distinction between the two.
+:::
+
+### What You Get
+
+Each time the trigger fires, it passes along two pieces of information to your Flow workflow:
+
+- **The Shopify collection's GID.** The collection as it exists in Shopify. This is what you'll typically use in the rest of your workflow, for example to feed a "Find collection" action further down the line.
+- **The collection's ID in Smart Collection Pro.** Mostly useful if you're also working with the app's API and need to reference the collection there.
+
+What you do with that information is entirely up to you. A few ideas to get started:
+
+- Unpublish a collection when the last product is removed from it, and republish it automatically once a product is added back, so customers never land on an empty collection page.
+- Post a message to Slack or send an email when a product is added to a key collection, like a "Best Sellers" or "New Arrivals" collection.
+
+### Turning It On
+
+This notification is off by default. To enable it:
+
+1. Open **Smart Collection Pro** in your Shopify admin.
+2. Go to **Settings → Flow**.
+3. Turn on the setting for product movement notifications.
+
+#### Fastest Way: Ask Sidekick
+
+  
+    
+      ![Ask Sidekick button on the Settings → Flow page](./img/flow/ask-sidekick.png)
+    
+  
+
+The Settings → Flow page has an **Ask Sidekick** button. Click it to open a pre-filled Shopify Sidekick conversation: Sidekick will ask what you want the automation to do, and build the workflow with you from there, no need to touch the Flow editor yourself.
+
+#### Or Build It Yourself
+
+Open the **Flow** app in your Shopify admin and start a new workflow. Smart Collection Pro's trigger will be available in the list of triggers you can choose from.
 
 ---
 
