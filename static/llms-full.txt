@@ -1231,6 +1231,34 @@ There are two limits to keep in mind:
 - Conditions that belong to another app installed on your store can't be imported, only conditions you set up yourself.
 - Conditions that reference other Shopify collections can't be imported either. That's because the app's own "is in / is not in" collection condition only works with collections that are themselves managed by the app, it can't point at an arbitrary Shopify collection.
 
+### Automation & Shopify Flow
+
+#### Can I react to a collection update, like running an automation whenever a collection changes?
+
+Yes, for any collection Smart Collection Pro manages. The app can notify Shopify Flow whenever it adds or removes a product from one of your Managed Collections, so you can build an automation around it, whether that's a Slack notification, an email, a tag update, or anything else Flow can do.
+
+[See our Shopify Flow integration documentation](./flow.mdx)
+
+#### How do I trigger a Shopify Flow workflow when a product is added to or removed from a collection?
+
+Shopify Flow doesn't have a built-in trigger for this: out of the box, Flow can't tell you when a product enters or leaves a collection. Smart Collection Pro adds that missing trigger for any collection it manages, firing a Flow workflow every time it adds or removes a product so you can automate whatever should happen next.
+
+[See our Shopify Flow integration documentation](./flow.mdx)
+
+#### Does this work with any Shopify collection, or only collections managed by Smart Collection Pro?
+
+Only **Managed Collections**, collections set up and kept in sync through Smart Collection Pro. That's what lets the app know exactly when and why a product moved. A regular Shopify collection you manage by hand won't have this trigger available.
+
+#### Will the Flow trigger fire if I add or remove a product manually in the Shopify admin?
+
+No. It only fires for movements Smart Collection Pro itself performs through its own sync. A manual change made directly on the collection in Shopify, outside the app, won't trigger a workflow.
+
+[See our Shopify Flow integration documentation](./flow.mdx)
+
+#### Do I need to know how Shopify Flow works to use this?
+
+Not really. You can turn on the trigger from **Settings → Flow** and click **Ask Sidekick** to describe what you want in plain language; Sidekick builds the workflow with you.
+
 ### Activity
 
 #### Does Activity track changes I make directly in Shopify?
@@ -1296,6 +1324,32 @@ The Settings → Flow page has an **Ask Sidekick** button. Click it to open a pr
 #### Or Build It Yourself
 
 Open the **Flow** app in your Shopify admin and start a new workflow. Smart Collection Pro's trigger will be available in the list of triggers you can choose from.
+
+New to Shopify Flow? [Shopify's guide to getting started with Flow](https://help.shopify.com/en/manual/shopify-flow) walks you through the basics of building a workflow.
+
+### Need Something Different?
+
+:::info
+This trigger covers product movements on Managed Collections, but if you need different events or more data for your integration, [get in touch with our team](/contact), we'd love to hear what you're trying to build.
+:::
+
+### FAQ
+
+#### Can I use this trigger in more than one workflow?
+
+Yes. Once it's enabled, the trigger shows up in Flow's trigger list for any workflow you build, there's no limit to how many workflows can use it, or what each one does.
+
+#### Does enabling this notification slow down my collection syncs?
+
+No. It's a notification sent alongside the app's normal syncing, it doesn't change how or how fast Smart Collection Pro keeps your collections up to date.
+
+#### Do I need a specific Shopify plan to use Shopify Flow?
+
+That depends on Shopify's own requirements for the Flow app, not on Smart Collection Pro. Check [Shopify's Flow documentation](https://help.shopify.com/en/manual/shopify-flow) for current plan availability.
+
+#### I enabled the setting but don't see the trigger in Flow. What should I check?
+
+Make sure the setting is turned on under **Settings → Flow** in the app, then open the Flow app and search for Smart Collection Pro when adding a trigger to your workflow. If it's still missing, reach out to us and we'll help you sort it out.
 
 ---
 
