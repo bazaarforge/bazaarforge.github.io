@@ -51,6 +51,128 @@ If there's something that would make it more useful to you, we'd love to hear it
 
 ---
 
+## HTTP API
+
+Smart Collection Pro has an HTTP API for working with your Managed Collections from outside the app: creating them, reading them back, updating their conditions, or removing them. It's meant for stores that want to drive collections from their own systems, whether that's a custom admin tool, a migration script, or another app in your stack.
+
+### It's Opt-In
+
+The API is off by default, and we turn it on store by store rather than exposing it to everyone automatically. Two reasons for that:
+
+- **Fit.** The API is still young, and we'd rather walk through what you're trying to build first, so we can tell you honestly whether it's a good match today or whether you're better served waiting for something we haven't shipped yet.
+- **Security.** An API key is external access to your store's collections. We want to make sure it's set up safely from day one, keys scoped sensibly, stored properly on your end, revoked when they're no longer needed, rather than handed out and forgotten.
+
+[Get in touch with our team](/contact) when you're ready to start. We'll talk through your use case, enable the API for your store, and help you take your first steps: that includes sending you our OpenAPI schema and example code, so you're not reverse-engineering the API from scratch.
+
+### API Keys
+
+Once enabled, you can generate API keys yourself under **Smart Collection Pro → Settings → API**. Each store can have up to **five** active keys at a time, so you can, for example, use a separate key per integration and revoke one without affecting the others.
+
+For security reasons, requesting a new key prompts the store admin to validate the request before it's issued.
+
+Treat a key like a password: anyone who has it can act on your store through the API. Keep it out of client-side code and version control, and revoke it immediately if you think it's been exposed.
+
+### How It Works
+
+What follows is a rough shape of the API to give you a feel for it, not the full reference. Once your use case is approved, we'll walk you through the complete details, including the OpenAPI schema and working examples.
+
+Every action is a single `POST` request with a JSON body, and every call is protected by your API key.
+
+The response is always `200 OK` when your request reaches an action and gets processed, even if the action itself fails for a business reason. Its body tells you which happened:
+
+```json
+{ "ok": true, "data": { /* ... */ } }
+```
+
+```json
+{ "ok": false, "error": { "code": "NOT_FOUND", "message": "..." } }
+```
+
+A non-200 response means the request never reached an action at all, for example a missing or invalid API key, an unknown action name, too many requests in a short window, or a malformed request body.
+
+A few of the error codes you'll see in an `ok: false` body:
+
+| Code             | Meaning                                                             |
+| ----------------- | -------------------------------------------------------------------- |
+| `VALIDATION`      | Something in your conditions couldn't be resolved, like a metafield that doesn't exist on your store. |
+| `NOT_FOUND`       | The collection (or parent) you referenced doesn't exist.             |
+| `CYCLE`           | The parent/conditions you asked for would create a loop in your hierarchy. |
+| `LIMIT_EXCEEDED`  | Your plan doesn't allow another collection, or another level of nesting. |
+
+### What You Can Do
+
+- **Create** a Managed Collection, with the same conditions and hierarchy options available in the app: nested AND/OR groups, and an optional parent so API-created collections slot into your existing tree just like ones you build by hand.
+- **Read** a Managed Collection back, by its own ID or by the Shopify collection it maps to.
+- **Update** a Managed Collection: change its title, conditions, or hierarchy. Fields you leave out keep their current value.
+- **Delete** a Managed Collection.
+- **Ping**, to confirm a key is valid before you build anything on top of it.
+
+Here's roughly what creating a parent and a child collection looks like, chained together:
+
+```js
+// Create the parent collection first.
+const parent = await callApi("create-managed-collection", {
+  title: "Summer Sale",
+  filters: {
+    name: "logicalGroup",
+    operator: "and",
+    children: [{ name: "productTag", operator: "eq", value: ["summer"] }],
+  },
+});
+
+// Then create a child nested under it, using the parent's ID.
+const child = await callApi("create-managed-collection", {
+  title: "Summer Sale - Beachwear",
+  parent: { managedCollectionId: parent.managedCollectionId },
+  filters: {
+    name: "logicalGroup",
+    operator: "and",
+    children: [{ name: "productType", operator: "eq", value: ["Beachwear"] }],
+  },
+});
+```
+
+`child` narrows down `parent`'s products further, the same way nesting works anywhere else in the app. `callApi` here is a small wrapper you write yourself: it sends the request with your API key, and returns `data` on success or throws using the `error` above otherwise.
+
+### Use Cases
+
+A few genuine ways stores have put the API to use:
+
+- **Syncing from an ERP or PIM.** If your product categories live in another system, that system can stay the source of truth: whenever it adds, renames, or reorganizes a category, it calls the API to create or update the matching Managed Collection, nesting included. Your team keeps managing the taxonomy where they already do, and the storefront hierarchy follows automatically, instead of someone re-entering the same structure by hand in Shopify.
+- **Migrating from another platform.** Rebuilding a large, deeply nested category tree one collection at a time in the UI is slow and error-prone. A one-time script can walk your old platform's categories and recreate the whole structure through the API in a single pass, parent/child relationships and conditions included.
+- **Keeping franchise or multi-store catalogs consistent.** If you manage collection structure for several Shopify stores, like a franchisor rolling the same taxonomy out to every franchisee, the API lets you push a structural change from one place instead of repeating it manually in each store.
+- **Pulling your hierarchy into your own tools.** The API isn't only for writing. An internal dashboard, reporting tool, or customer service app can read a product's collections and where they sit in the tree directly from the API, so that information is available wherever your team works, not just in the Shopify admin.
+
+### Need Something Different?
+
+:::info
+This API currently covers Managed Collections themselves. If you need it to do more, [get in touch with our team](/contact), we'd love to hear what you're trying to build.
+:::
+
+### FAQ
+
+#### How long does it take to get API access approved?
+
+We usually reply the same business day you reach out. If your use case is a good fit, approval and setup can happen that same day too.
+
+#### Is there a cost to use the API?
+
+Not on top of your subscription. For now, the API is available to stores on the **Advanced** and **Enterprise** plans, at no extra cost.
+
+#### Is there a rate limit?
+
+Yes, but it's generous. It's there to prevent abuse, not to get in the way of normal use. If you hit it, you'll see a `RATE_LIMITED` response, back off and retry shortly after.
+
+#### Do collections created through the API behave differently from ones I create in the app?
+
+No, exactly the same. They're built on the same conditions and hierarchy engine as collections you create by hand, and they sync the same way.
+
+#### Can I try the API on a sandbox or staging store first?
+
+Yes, and we actually encourage it. If you have a development or staging store, get your integration working there first, then point it at your live store once you're confident in it.
+
+---
+
 ## Breadcrumb Navigation
 
 ### Helping Customers Find Their Way
@@ -256,6 +378,15 @@ Overrides crumbs styling for the **current page** label. This is the last item i
 ## Changelogs
 
 Stay up to date with the latest improvements to Smart Collection Pro.
+
+#### November 13, 2026
+
+- **Reworked Import & Export**: The import/export format has been redesigned to support all the latest features of the app, including roll up collections and filtering on other collections. [See Import / Export documentation](./import-export.mdx)
+- **JSON is now the default export format**: Alongside the existing CSV and XLSX options, you can now export to JSON, and it's now the default.
+
+#### November 6, 2026
+
+- **New onboarding screen**: New installs now go through a new onboarding screen to help you get started with the app.
 
 #### November 4, 2026
 
@@ -1003,196 +1134,6 @@ Your Managed Collection is now set up and will update dynamically based on your 
 
 ---
 
-## CSV Import & Export
-
-The **CSV Import & Export** feature is designed for merchants who need to migrate a collection hierarchy from one Shopify store to another. Instead of rebuilding your managed collections by hand in the destination store, you can export them as a CSV from the source store and import them into the new one.
-
-This is an **opt-in only feature**, enabled on a per-merchant basis. If you need access, reach out to us and we'll enable it for your store.
-
-Once enabled, a new **Import & Export** entry appears in the left menu of the app inside the Shopify Admin.
-
-![Import & Export menu screenshot](./img/csv/menu-entry.png)
-
-:::warning
-
-Being an early-access feature. It has limited error coverage. If an import fails, it may do so with an unhelpful generic error message. If that happens, contact us with your CSV and we'll help diagnose what went wrong.
-
-:::
-
----
-
-### Exporting Collections
-
-Exporting gives you a CSV snapshot of all your managed collections — their hierarchy, parent/child relationships, and filter conditions. The main use case is to then import that file into another store, but you can also use it as a reference when building a CSV by hand.
-
-#### How to Export
-
-##### 1. Open the **Import & Export** section from the left menu
-
-##### 2. Click **Export CSV**
-
-The file downloads to your computer. Each row represents one managed collection.
-
-> **Good to know:** The exported CSV contains additional columns (like internal IDs and Shopify resource IDs) that are not used during import. They're there to help you read and understand the file — you don't need to include them if you're building a CSV by hand.
-
----
-
-### Importing Collections
-
-Importing reads a CSV file and creates managed collections in the app, linking each one to an existing Shopify collection and wiring up the parent/child relationships. This is what you'd run in a destination store after exporting from the source.
-
-#### Before you import
-
-:::danger
-
-The import tool **does not create Shopify collections**. Every collection referenced in your CSV must already exist as a **manual (non-smart) collection** in the destination store before you run the import. If a collection doesn't exist yet, create it manually in Shopify first.
-
-:::
-
-The import only creates managed collections inside the app — it connects them to Shopify collections that already exist in your store, but never creates those collections itself.
-
-For each row in the CSV, the import will:
-
-- Create a managed collection in the app
-- Link it to the existing Shopify collection via its handle
-- Assign its parent based on `parent_collection_handle`
-- Apply the filter conditions from the `filters` field
-
-Each parent collection referenced in your CSV must either already be a managed collection in the app, or appear as its own row in the CSV so it gets created in the same import run.
-
-#### How to Import
-
-##### 1. Open the **Import & Export** section from the left menu
-
-##### 2. Click **Import CSV** and select your file
-
-##### 3. Review the summary and confirm
-
-The app will process the file and create the managed collections. If anything fails, contact us — we can help figure out what went wrong.
-
----
-
-### CSV File Format
-
-The CSV requires four columns. Any additional columns (like those present in an exported file) are ignored during import.
-
-| Column                     | Description                                                                                                                                                                                                            |
-| -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `collection_handle`        | The handle of the Shopify collection this row maps to. Must already exist as a manual (non-smart) collection in the store.                                                                                             |
-| `collection_title`         | The title of the collection. Not used during import — only included to make error messages easier to read.                                                                                                             |
-| `parent_collection_handle` | The handle of the parent collection. Leave empty for root collections. Must exist as a manual collection in the store, and must either already be a managed collection in the app or appear as its own row in the CSV. |
-| `filters`                  | A JSON object defining the collection's filter conditions. See [The `filters` field](#the-filters-field) below.                                                                                                        |
-
-#### Simple example
-
-Here's what a minimal CSV looks like for a two-level hierarchy — a **Women's Clothing** root collection with a **Dresses** child collection:
-
-```csv
-collection_handle,collection_title,parent_collection_handle,filters
-womens-clothing,Women's Clothing,,"{""name"":""logicalGroup"",""operator"":""and"",""children"":[]}"
-dresses,Dresses,womens-clothing,"{""name"":""logicalGroup"",""operator"":""and"",""children"":[]}"
-```
-
-`parent_collection_handle` is left empty for the root collection. `dresses` references `womens-clothing` as its parent, so the app will nest it underneath. The empty `children` array in the `filters` field means no filter conditions — the collection will include all products from its parent.
-
----
-
-### The `filters` Field
-
-The `filters` column is the most complex part of the CSV. It contains a JSON object that describes the conditions used to populate the collection — the same rules you'd configure using the visual condition builder in the app.
-
-#### Structure
-
-Every `filters` value must be a `logicalGroup` at the top level. A `logicalGroup` has three properties:
-
-- `"name": "logicalGroup"` — identifies it as a group node
-- `"operator"` — either `"and"` or `"or"`, controlling how its children are evaluated together
-- `"children"` — an array of individual filter conditions, or nested `logicalGroup` objects
-
-Nesting `logicalGroup` objects inside `children` is how you replicate the sub-groups you can build in the visual editor — for example, an outer `or` group that contains an inner `and` group.
-
-**Example** — include all discounted products:
-
-```json
-{
-  "name": "logicalGroup",
-  "operator": "or",
-  "children": [
-    {
-      "name": "discount",
-      "operator": "true",
-      "value": null
-    }
-  ]
-}
-```
-
-**Example** — combine a metafield condition with a price condition using nested groups:
-
-```json
-{
-  "name": "logicalGroup",
-  "operator": "or",
-  "children": [
-    {
-      "name": "logicalGroup",
-      "operator": "and",
-      "children": [
-        {
-          "name": "gid://shopify/MetafieldDefinition/65827537127",
-          "operator": "neq",
-          "value": "8",
-          "metafieldKey": "test_decimal_field",
-          "metafieldName": "test decimal field",
-          "metafieldTypeName": "number_decimal",
-          "metafieldNamespace": "custom",
-          "metafieldOwnerType": "PRODUCT"
-        }
-      ]
-    },
-    {
-      "name": "price",
-      "operator": "gt",
-      "value": "0"
-    }
-  ]
-}
-```
-
-#### Folders
-
-Smart Collection Pro lets you create folders — virtual collections that don't have a Shopify collection attached. They're included in exports and imports just like regular collections.
-
-Folder handles use a `scp.folder:` prefix, for example `scp.folder:winter-sales`. You can use them in either the `collection_handle` or `parent_collection_handle` column, just like a regular collection handle.
-
-A few things to keep in mind:
-
-- Folders don't create a Shopify collectionm, they never need to exist in Shopify before importing.
-- Folders can only be root collections. Setting a `parent_collection_handle` on a folder will result in an error when reviewing the import.
-- If a folder with the same handle already exists, the import will update its title and filters. Otherwise, it will be created.
-
-#### The easiest way to get the right JSON
-
-The filter JSON format is not fully documented. Rather than writing it from scratch, the recommended approach is to **set up the conditions you want using the app's visual editor**, then export your collections and copy the `filters` value from the exported CSV. This guarantees the JSON is valid and correctly formatted.
-
----
-
-### Converting Smart Collections to Manual Collections
-
-The import tool only works with manual (non-smart) collections. If you're trying to migrate smart collections, you'll need to convert them first — Shopify doesn't currently offer a native way to do this. Many Shopify partners, including BazaarForge, have raised this limitation with Shopify. It's on their radar, but without any communicated timeline, so it's not something to plan around for now.
-
-The only available path is to **delete the smart collection and recreate it as a manual collection**.
-
-:::danger
-
-Deleting a collection permanently removes all references to it — including placements in your theme and any metafield relationships. This cannot be undone. Be sure you understand the full impact before proceeding.
-
-:::
-
-We recommend testing your migration on a **dev store** first. Smart Collection Pro is free on dev stores, so you can safely run through the full export/import workflow before touching your live store.
-
----
-
 ## Frequently Asked Questions
 
 Answers to questions we hear often. If you don't find what you're looking for, feel free to reach out, we're always happy to help.
@@ -1256,6 +1197,14 @@ No. Activity only records what happens inside the app, whether that's you, the A
 #### How far back does Activity history go?
 
 Activity started recording on October 7, 2026, so nothing before that date is available. We currently keep 3 months of history. This may evolve as the feature matures.
+
+### API
+
+#### Can I use an API to connect to the app?
+
+Yes. Smart Collection Pro has an HTTP API for creating, reading, updating, and deleting Managed Collections programmatically. It's an opt-in feature: we enable it per store after a quick conversation, to make sure it fits what you're building and to go over security, since an API key opens external access to your store.
+
+[See our HTTP API documentation](./api.mdx)
 
 ---
 
@@ -1414,7 +1363,123 @@ Folders are fully supported in the CSV import and export workflow. When you expo
 
 You can use these prefixed handles in both the `collection_handle` and `parent_collection_handle` columns, just like a regular collection handle. Unlike regular collections, folders don't need to exist in Shopify before importing since they never create a Shopify collection.
 
-For more details on the CSV format, see [CSV Import & Export](./csv-import.mdx).
+For more details on the file format, see [Import / Export](./import-export.mdx).
+
+---
+
+## Import / Export
+
+The **Import / Export** feature is designed to move your Managed Collections, hierarchy and all, from one store to another. The most common case is moving your setup from a staging or dev store into production once you're happy with it, but it works just as well for migrating between any two stores.
+
+This is an **opt-in only feature**, enabled on a per-merchant basis. If you need access, [reach out to us](/contact) and we'll enable it for your store.
+
+Once enabled, a new **Import / Export** entry appears in the left menu of the app inside the Shopify Admin.
+
+---
+
+### File Format
+
+Exports use **JSON**. CSV and XLSX are still available for compatibility, but we recommend JSON: managed collections are naturally nested data, filters can nest inside filters, and a collection has a parent and a roll up setting, and that doesn't fit well into a spreadsheet's flat rows and columns. CSV and XLSX work around this by cramming a JSON string into a single cell, which is awkward to read or edit by hand. JSON represents that nesting directly instead.
+
+### Importing Collections
+
+Importing reads a file and creates managed collections in the app, linking each one to an existing Shopify collection and wiring up the parent/child relationships. This is what you'd run in the destination store after exporting from the source.
+
+#### Before you import
+
+The import tool **does not create Shopify collections**. Every collection referenced in your file must already exist in the destination store before you run the import. If a collection doesn't exist yet, create it in Shopify first.
+
+The import only creates managed collections inside the app, it connects them to Shopify collections that already exist in your store, but never creates those collections itself.
+
+For each entry in the file, the import will:
+
+- Create a managed collection in the app
+- Link it to the existing Shopify collection (or folder), via `target`
+- Assign its parent, if any
+- Apply the roll up setting and filter conditions
+
+Each parent referenced in your file must either already be a managed collection in the app, or appear as its own entry in the file so it gets created in the same import run.
+
+#### How to Import
+
+##### 1. Open the **Import / Export** section from the left menu
+
+##### 2. Click **Import** and select your file
+
+##### 3. Review the summary and confirm
+
+The app will process the file and create the managed collections. If anything fails, contact us, we can help figure out what went wrong.
+
+---
+
+### Exporting Collections
+
+Exporting gives you a JSON snapshot of all your managed collections: their hierarchy, parent/child relationships, roll up setting, and filter conditions. The main use case is to then import that file into another store, but you can also use it as a reference when building one by hand.
+
+#### How to Export
+
+##### 1. Open the **Import / Export** section from the left menu
+
+##### 2. Click **Export**
+
+The file downloads to your computer.
+
+---
+
+### JSON File Format
+
+Here's roughly what the file looks like:
+
+```json
+{
+  "formatVersion": 1,
+  "exportedAt": "2026-11-12T20:09:03.522Z",
+  "managedCollections": [
+    {
+      "target": { "shopifyCollectionHandle": "beachwear" },
+      "parent": { "shopifyCollectionHandle": "summer-sale" },
+      "title": "Beachwear",
+      "rollUp": false,
+      "filters": {
+        "name": "logicalGroup",
+        "operator": "and",
+        "children": []
+      }
+    }
+  ]
+}
+```
+
+- `formatVersion`: the version of the export format, so the app knows how to read older files if the format changes in the future.
+- `exportedAt`: when the file was generated. Informational only, not used during import.
+- `managedCollections`: one entry per managed collection, or folder.
+
+#### Each entry
+
+| Field     | Description                                                                                                                                                                    |
+| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `target`  | Identifies the Shopify resource this entry maps to: `{ "shopifyCollectionHandle": "..." }` for a collection, or `{ "folderHandle": "..." }` for a folder.                        |
+| `parent`  | The parent's `target`, in the same shape, or `null` for a root collection.                                                                                                        |
+| `title`   | The collection's title.                                                                                                                                                           |
+| `rollUp`  | Whether this collection rolls up the products of its sub-collections, instead of narrowing down its own parent.                                                                   |
+| `filters` | The filter conditions, as a `logicalGroup` tree, same structure as the visual condition builder in the app. A `collection` condition can reference another collection by `target`, to filter on membership in another managed collection. |
+
+#### Folders
+
+Smart Collection Pro lets you create folders, virtual collections that don't have a Shopify collection attached. They're included in exports and imports just like regular collections, using a `target` of `{ "folderHandle": "..." }` instead of `shopifyCollectionHandle`.
+
+A few things to keep in mind:
+
+- Folders don't need to exist in Shopify before importing, they're virtual.
+- If a folder with the same handle already exists, the import will update its title and filters. Otherwise, it will be created.
+
+#### The easiest way to get the right file
+
+The exact shape of `filters` isn't fully documented. Rather than writing it from scratch, the recommended approach is to **set up the conditions you want using the app's visual editor**, then export your collections and use the result as a reference. This guarantees the structure is valid.
+
+---
+
+We recommend testing on a **dev or staging store** first. Smart Collection Pro is free on dev stores, so you can safely run through the full import/export workflow before touching your live store.
 
 ---
 
